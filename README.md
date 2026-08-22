@@ -37,6 +37,14 @@ HiDPI and refresh rates other than 60 Hz are not included in this version.
 
 ## Build
 
+With [just](https://github.com/casey/just) installed, build and launch the app with:
+
+```sh
+just run
+```
+
+Run `just --list` to see build, test, release, project generation, and cleanup recipes.
+
 Open `VirtualScreen.xcodeproj` in Xcode and run the `VirtualScreen` scheme.
 The project has no third-party runtime dependencies and does not require a development team for an unsigned local build.
 
