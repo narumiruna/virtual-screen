@@ -1,0 +1,627 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0FA42106B7591DAB28B13397 /* ResolutionPreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF306AEE45D19B9D635E8C06 /* ResolutionPreset.swift */; };
+		148256B2611D0D073F96E9C8 /* CoreGraphicsVirtualDisplayBackend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B6D9F32EC9CF827C1AE367 /* CoreGraphicsVirtualDisplayBackend.swift */; };
+		193F1108E15DED7C16871CDD /* DialogPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F681640B3529D82C57252C7 /* DialogPresenter.swift */; };
+		1D7149FB46BDF0698F4FB825 /* VSCGVirtualDisplayBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = BF12D86B9444D63B9ACDE2AC /* VSCGVirtualDisplayBridge.m */; };
+		2AB1FF81C06B0283F5744C65 /* LiveVirtualDisplayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A349DE2884E7E01F61B191 /* LiveVirtualDisplayTests.swift */; };
+		34F474931A4EDCB4EB75CDA7 /* ResolutionPresetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48450D05E16A5262C35BB8A /* ResolutionPresetTests.swift */; };
+		3668BF84944E6911111217CD /* VirtualDisplayProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD211C8CEC50B56B54183AEE /* VirtualDisplayProfile.swift */; };
+		3F8921F25D8F3E2ACFFA5268 /* LaunchAtLoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC83A9832A065B27EE5D60E /* LaunchAtLoginManager.swift */; };
+		5F8109AB340E39AEA34CF392 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E10FB8F7CB3BB24C1B52AEB0 /* SwiftUI.framework */; };
+		69F1507ADC2C330680AFA374 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5FA6FBC5F7E6B20DB9D0120E /* InfoPlist.strings */; };
+		729B24077272887970D50AFA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E5063D18DDB36A259ACD0487 /* Localizable.strings */; };
+		740AC1A755CE6924B8B545C9 /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BCD1322A836F337EB31771B /* ServiceManagement.framework */; };
+		7C252FD8DEA5AEF2E875F65C /* StableDisplayIdentity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78E6E4A60EB357911C9D43C /* StableDisplayIdentity.swift */; };
+		A8796038CC51DC863E3CBC41 /* PersistenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA9DD8B8929B6EDF29625D0 /* PersistenceTests.swift */; };
+		AB9FAAED8E161C4AECBBF220 /* MenuBarContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA2F342E45E606EAD74DD46 /* MenuBarContent.swift */; };
+		AD2BA2D0205C41A4715C766A /* StateRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6291E17D85E9FC0AA7D4D1 /* StateRepository.swift */; };
+		D215D2D0A29677BAC65E6490 /* VirtualDisplayStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D85D7EE66F5E34DA578CED8 /* VirtualDisplayStoreTests.swift */; };
+		DC3841A14C8F246CF761CCD5 /* VirtualScreenApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA671942716BF1D06E8FBF4D /* VirtualScreenApp.swift */; };
+		DD55A4CF935411F6315DE184 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E67705D6FB65B04B552FAD3 /* AppKit.framework */; };
+		E17E25728A25B03BA313B2AD /* PersistedState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A724875EA94B73532FDE20FD /* PersistedState.swift */; };
+		EA36056EC0BB67F318F7ED63 /* TestDoubles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 979328D9BA4A38EE7A3B800F /* TestDoubles.swift */; };
+		F1711C95DBDF95130713240F /* VirtualDisplayStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E36756C2028A05BCF66E9CAE /* VirtualDisplayStore.swift */; };
+		F2FE537F63BE851F97A08FEC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C6D33218D187D8D0C0D490C8 /* Assets.xcassets */; };
+		FD8E37B8E92894BEECE81B66 /* VirtualDisplayBackend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E8499D2842E8624980158C3 /* VirtualDisplayBackend.swift */; };
+		FF5DA59F8BBE812C3C2D9998 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6529809543E34CB72FEDAA5B /* CoreGraphics.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		16C0D202C6220CCC8FF02A6F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C100FD3A9AF5ECD0EFC28BB7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5FA4D0D9A9DC94AB4396CD9B;
+			remoteInfo = VirtualScreen;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0392E537B66C2DCF9321307D /* VirtualScreenTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VirtualScreenTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0E8499D2842E8624980158C3 /* VirtualDisplayBackend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualDisplayBackend.swift; sourceTree = "<group>"; };
+		1C6291E17D85E9FC0AA7D4D1 /* StateRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateRepository.swift; sourceTree = "<group>"; };
+		35B6D9F32EC9CF827C1AE367 /* CoreGraphicsVirtualDisplayBackend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreGraphicsVirtualDisplayBackend.swift; sourceTree = "<group>"; };
+		3AA2F342E45E606EAD74DD46 /* MenuBarContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarContent.swift; sourceTree = "<group>"; };
+		3BCD1322A836F337EB31771B /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
+		4E67705D6FB65B04B552FAD3 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		5990FE91BF69A576AE2F72DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		5B37222FF31FCC47C454DDFE /* VirtualScreen-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VirtualScreen-Bridging-Header.h"; sourceTree = "<group>"; };
+		60F7279C6154215038440927 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		61D60F30683C1B7DA9A0862A /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		6529809543E34CB72FEDAA5B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		65A349DE2884E7E01F61B191 /* LiveVirtualDisplayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveVirtualDisplayTests.swift; sourceTree = "<group>"; };
+		6843939B2030B34CC264558F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		8468D5DA0EFCAEB21B2C2EA3 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		979328D9BA4A38EE7A3B800F /* TestDoubles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDoubles.swift; sourceTree = "<group>"; };
+		9D85D7EE66F5E34DA578CED8 /* VirtualDisplayStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualDisplayStoreTests.swift; sourceTree = "<group>"; };
+		9F681640B3529D82C57252C7 /* DialogPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogPresenter.swift; sourceTree = "<group>"; };
+		A724875EA94B73532FDE20FD /* PersistedState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistedState.swift; sourceTree = "<group>"; };
+		AEA9DD8B8929B6EDF29625D0 /* PersistenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceTests.swift; sourceTree = "<group>"; };
+		B78E6E4A60EB357911C9D43C /* StableDisplayIdentity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StableDisplayIdentity.swift; sourceTree = "<group>"; };
+		BA671942716BF1D06E8FBF4D /* VirtualScreenApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualScreenApp.swift; sourceTree = "<group>"; };
+		BF12D86B9444D63B9ACDE2AC /* VSCGVirtualDisplayBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VSCGVirtualDisplayBridge.m; sourceTree = "<group>"; };
+		BF306AEE45D19B9D635E8C06 /* ResolutionPreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResolutionPreset.swift; sourceTree = "<group>"; };
+		C545E878852767D7EB272E9F /* VSCGVirtualDisplayBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VSCGVirtualDisplayBridge.h; sourceTree = "<group>"; };
+		C6D33218D187D8D0C0D490C8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CD211C8CEC50B56B54183AEE /* VirtualDisplayProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualDisplayProfile.swift; sourceTree = "<group>"; };
+		D48450D05E16A5262C35BB8A /* ResolutionPresetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResolutionPresetTests.swift; sourceTree = "<group>"; };
+		DFC83A9832A065B27EE5D60E /* LaunchAtLoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchAtLoginManager.swift; sourceTree = "<group>"; };
+		E10FB8F7CB3BB24C1B52AEB0 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		E36756C2028A05BCF66E9CAE /* VirtualDisplayStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualDisplayStore.swift; sourceTree = "<group>"; };
+		E42C55754322CD29C9B5DF79 /* VirtualScreen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VirtualScreen.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		7AC16B21677B27638E8E70CC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DD55A4CF935411F6315DE184 /* AppKit.framework in Frameworks */,
+				FF5DA59F8BBE812C3C2D9998 /* CoreGraphics.framework in Frameworks */,
+				740AC1A755CE6924B8B545C9 /* ServiceManagement.framework in Frameworks */,
+				5F8109AB340E39AEA34CF392 /* SwiftUI.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		322C054195CFEA3E1796B649 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				35B6D9F32EC9CF827C1AE367 /* CoreGraphicsVirtualDisplayBackend.swift */,
+				DFC83A9832A065B27EE5D60E /* LaunchAtLoginManager.swift */,
+				B78E6E4A60EB357911C9D43C /* StableDisplayIdentity.swift */,
+				0E8499D2842E8624980158C3 /* VirtualDisplayBackend.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		5CB0C058E1C762FE5773FA7F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4E67705D6FB65B04B552FAD3 /* AppKit.framework */,
+				6529809543E34CB72FEDAA5B /* CoreGraphics.framework */,
+				3BCD1322A836F337EB31771B /* ServiceManagement.framework */,
+				E10FB8F7CB3BB24C1B52AEB0 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		635CC47FCDB00AE1694C1775 /* Bridge */ = {
+			isa = PBXGroup;
+			children = (
+				5B37222FF31FCC47C454DDFE /* VirtualScreen-Bridging-Header.h */,
+				C545E878852767D7EB272E9F /* VSCGVirtualDisplayBridge.h */,
+				BF12D86B9444D63B9ACDE2AC /* VSCGVirtualDisplayBridge.m */,
+			);
+			path = Bridge;
+			sourceTree = "<group>";
+		};
+		74EDD546265AD3FE23000492 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E42C55754322CD29C9B5DF79 /* VirtualScreen.app */,
+				0392E537B66C2DCF9321307D /* VirtualScreenTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		86CD7F0F322AA8E712FDDFE0 /* Store */ = {
+			isa = PBXGroup;
+			children = (
+				E36756C2028A05BCF66E9CAE /* VirtualDisplayStore.swift */,
+			);
+			path = Store;
+			sourceTree = "<group>";
+		};
+		A180A7F44BBF60122450F86D /* VirtualScreenTests */ = {
+			isa = PBXGroup;
+			children = (
+				65A349DE2884E7E01F61B191 /* LiveVirtualDisplayTests.swift */,
+				AEA9DD8B8929B6EDF29625D0 /* PersistenceTests.swift */,
+				D48450D05E16A5262C35BB8A /* ResolutionPresetTests.swift */,
+				979328D9BA4A38EE7A3B800F /* TestDoubles.swift */,
+				9D85D7EE66F5E34DA578CED8 /* VirtualDisplayStoreTests.swift */,
+			);
+			path = VirtualScreenTests;
+			sourceTree = "<group>";
+		};
+		A1A499395EC0D52815C6AC97 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				BF306AEE45D19B9D635E8C06 /* ResolutionPreset.swift */,
+				CD211C8CEC50B56B54183AEE /* VirtualDisplayProfile.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		C357FF424BDD58D0B7324489 /* VirtualScreen */ = {
+			isa = PBXGroup;
+			children = (
+				C6D33218D187D8D0C0D490C8 /* Assets.xcassets */,
+				D47571E36402E34A4AC7B541 /* Application */,
+				635CC47FCDB00AE1694C1775 /* Bridge */,
+				A1A499395EC0D52815C6AC97 /* Models */,
+				D10388B402F0B7BB8F332A07 /* Persistence */,
+				C66D27DBD6278D1559B78B82 /* Resources */,
+				322C054195CFEA3E1796B649 /* Services */,
+				86CD7F0F322AA8E712FDDFE0 /* Store */,
+				E47B3BA90B31BD6345AE75B9 /* UI */,
+			);
+			path = VirtualScreen;
+			sourceTree = "<group>";
+		};
+		C66D27DBD6278D1559B78B82 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				5990FE91BF69A576AE2F72DC /* Info.plist */,
+				5FA6FBC5F7E6B20DB9D0120E /* InfoPlist.strings */,
+				E5063D18DDB36A259ACD0487 /* Localizable.strings */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		CD4064CA4C92F3DFE64CDE43 = {
+			isa = PBXGroup;
+			children = (
+				C357FF424BDD58D0B7324489 /* VirtualScreen */,
+				A180A7F44BBF60122450F86D /* VirtualScreenTests */,
+				5CB0C058E1C762FE5773FA7F /* Frameworks */,
+				74EDD546265AD3FE23000492 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D10388B402F0B7BB8F332A07 /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				A724875EA94B73532FDE20FD /* PersistedState.swift */,
+				1C6291E17D85E9FC0AA7D4D1 /* StateRepository.swift */,
+			);
+			path = Persistence;
+			sourceTree = "<group>";
+		};
+		D47571E36402E34A4AC7B541 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				BA671942716BF1D06E8FBF4D /* VirtualScreenApp.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		E47B3BA90B31BD6345AE75B9 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				9F681640B3529D82C57252C7 /* DialogPresenter.swift */,
+				3AA2F342E45E606EAD74DD46 /* MenuBarContent.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		12A2805CC08FFF95DCF3174F /* VirtualScreenTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 677D770CF371F16335950607 /* Build configuration list for PBXNativeTarget "VirtualScreenTests" */;
+			buildPhases = (
+				B2D7B0A48CEB86E3B3B90E0D /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D8D056882FEEDC267BACD4B4 /* PBXTargetDependency */,
+			);
+			name = VirtualScreenTests;
+			packageProductDependencies = (
+			);
+			productName = VirtualScreenTests;
+			productReference = 0392E537B66C2DCF9321307D /* VirtualScreenTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		5FA4D0D9A9DC94AB4396CD9B /* VirtualScreen */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6B93DC03F3BC229098F239B9 /* Build configuration list for PBXNativeTarget "VirtualScreen" */;
+			buildPhases = (
+				6D68DB1FB387DB44EFA976A4 /* Sources */,
+				12E45EE057E6F8130D4E3AC9 /* Resources */,
+				7AC16B21677B27638E8E70CC /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = VirtualScreen;
+			packageProductDependencies = (
+			);
+			productName = VirtualScreen;
+			productReference = E42C55754322CD29C9B5DF79 /* VirtualScreen.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C100FD3A9AF5ECD0EFC28BB7 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					12A2805CC08FFF95DCF3174F = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Automatic;
+					};
+					5FA4D0D9A9DC94AB4396CD9B = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 76744BEA2D2ACEF5C07861F0 /* Build configuration list for PBXProject "VirtualScreen" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+				"zh-Hant",
+			);
+			mainGroup = CD4064CA4C92F3DFE64CDE43;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 74EDD546265AD3FE23000492 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				5FA4D0D9A9DC94AB4396CD9B /* VirtualScreen */,
+				12A2805CC08FFF95DCF3174F /* VirtualScreenTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		12E45EE057E6F8130D4E3AC9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F2FE537F63BE851F97A08FEC /* Assets.xcassets in Resources */,
+				69F1507ADC2C330680AFA374 /* InfoPlist.strings in Resources */,
+				729B24077272887970D50AFA /* Localizable.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		6D68DB1FB387DB44EFA976A4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				148256B2611D0D073F96E9C8 /* CoreGraphicsVirtualDisplayBackend.swift in Sources */,
+				193F1108E15DED7C16871CDD /* DialogPresenter.swift in Sources */,
+				3F8921F25D8F3E2ACFFA5268 /* LaunchAtLoginManager.swift in Sources */,
+				AB9FAAED8E161C4AECBBF220 /* MenuBarContent.swift in Sources */,
+				E17E25728A25B03BA313B2AD /* PersistedState.swift in Sources */,
+				0FA42106B7591DAB28B13397 /* ResolutionPreset.swift in Sources */,
+				7C252FD8DEA5AEF2E875F65C /* StableDisplayIdentity.swift in Sources */,
+				AD2BA2D0205C41A4715C766A /* StateRepository.swift in Sources */,
+				1D7149FB46BDF0698F4FB825 /* VSCGVirtualDisplayBridge.m in Sources */,
+				FD8E37B8E92894BEECE81B66 /* VirtualDisplayBackend.swift in Sources */,
+				3668BF84944E6911111217CD /* VirtualDisplayProfile.swift in Sources */,
+				F1711C95DBDF95130713240F /* VirtualDisplayStore.swift in Sources */,
+				DC3841A14C8F246CF761CCD5 /* VirtualScreenApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B2D7B0A48CEB86E3B3B90E0D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2AB1FF81C06B0283F5744C65 /* LiveVirtualDisplayTests.swift in Sources */,
+				A8796038CC51DC863E3CBC41 /* PersistenceTests.swift in Sources */,
+				34F474931A4EDCB4EB75CDA7 /* ResolutionPresetTests.swift in Sources */,
+				EA36056EC0BB67F318F7ED63 /* TestDoubles.swift in Sources */,
+				D215D2D0A29677BAC65E6490 /* VirtualDisplayStoreTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D8D056882FEEDC267BACD4B4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5FA4D0D9A9DC94AB4396CD9B /* VirtualScreen */;
+			targetProxy = 16C0D202C6220CCC8FF02A6F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		5FA6FBC5F7E6B20DB9D0120E /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				60F7279C6154215038440927 /* en */,
+				8468D5DA0EFCAEB21B2C2EA3 /* zh-Hant */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		E5063D18DDB36A259ACD0487 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6843939B2030B34CC264558F /* en */,
+				61D60F30683C1B7DA9A0862A /* zh-Hant */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		325D52F8D7CC9D6EE097F02E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = VirtualScreen/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.narumi.VirtualScreen;
+				PRODUCT_MODULE_NAME = VirtualScreen;
+				PRODUCT_NAME = "Virtual Screen";
+				SDKROOT = macosx;
+				SWIFT_OBJC_BRIDGING_HEADER = "VirtualScreen/Bridge/VirtualScreen-Bridging-Header.h";
+			};
+			name = Release;
+		};
+		732BD8D989F2F437CFDD9A0B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.narumi.VirtualScreenTests;
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Virtual Screen.app/Contents/MacOS/Virtual Screen";
+			};
+			name = Debug;
+		};
+		76819B15B98E0B55EB72F8D3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_APP_SANDBOX = NO;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.2;
+				MARKETING_VERSION = 0.1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				RUN_VIRTUAL_DISPLAY_TESTS = 0;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_STRICT_CONCURRENCY = minimal;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		92DA7BF9BF084C22C2497419 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.narumi.VirtualScreenTests;
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Virtual Screen.app/Contents/MacOS/Virtual Screen";
+			};
+			name = Release;
+		};
+		CFF9E3968DE88100CFE6FAC1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = VirtualScreen/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.narumi.VirtualScreen;
+				PRODUCT_MODULE_NAME = VirtualScreen;
+				PRODUCT_NAME = "Virtual Screen";
+				SDKROOT = macosx;
+				SWIFT_OBJC_BRIDGING_HEADER = "VirtualScreen/Bridge/VirtualScreen-Bridging-Header.h";
+			};
+			name = Debug;
+		};
+		D24CBA66353E54B0FBF33524 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_APP_SANDBOX = NO;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.2;
+				MARKETING_VERSION = 0.1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				RUN_VIRTUAL_DISPLAY_TESTS = 0;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_STRICT_CONCURRENCY = minimal;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		677D770CF371F16335950607 /* Build configuration list for PBXNativeTarget "VirtualScreenTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				732BD8D989F2F437CFDD9A0B /* Debug */,
+				92DA7BF9BF084C22C2497419 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		6B93DC03F3BC229098F239B9 /* Build configuration list for PBXNativeTarget "VirtualScreen" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CFF9E3968DE88100CFE6FAC1 /* Debug */,
+				325D52F8D7CC9D6EE097F02E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		76744BEA2D2ACEF5C07861F0 /* Build configuration list for PBXProject "VirtualScreen" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				76819B15B98E0B55EB72F8D3 /* Debug */,
+				D24CBA66353E54B0FBF33524 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C100FD3A9AF5ECD0EFC28BB7 /* Project object */;
+}

@@ -1,0 +1,80 @@
+name: VirtualScreen
+options:
+  bundleIdPrefix: com.narumi
+  deploymentTarget:
+    macOS: "13.2"
+  createIntermediateGroups: true
+settings:
+  base:
+    MACOSX_DEPLOYMENT_TARGET: "13.2"
+    MARKETING_VERSION: "0.1.0"
+    CURRENT_PROJECT_VERSION: "1"
+    SWIFT_VERSION: "5.0"
+    SWIFT_STRICT_CONCURRENCY: minimal
+    ENABLE_HARDENED_RUNTIME: true
+    ENABLE_APP_SANDBOX: false
+    CODE_SIGN_STYLE: Automatic
+    DEVELOPMENT_TEAM: ""
+    RUN_VIRTUAL_DISPLAY_TESTS: "0"
+targets:
+  VirtualScreen:
+    type: application
+    platform: macOS
+    sources:
+      - path: VirtualScreen
+    dependencies:
+      - sdk: AppKit.framework
+      - sdk: CoreGraphics.framework
+      - sdk: ServiceManagement.framework
+      - sdk: SwiftUI.framework
+    info:
+      path: VirtualScreen/Resources/Info.plist
+      properties:
+        CFBundleDisplayName: Virtual Screen
+        CFBundleName: Virtual Screen
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        LSApplicationCategoryType: public.app-category.utilities
+        LSMinimumSystemVersion: $(MACOSX_DEPLOYMENT_TARGET)
+        LSUIElement: true
+        NSHumanReadableCopyright: Copyright © 2026 Narumi
+        NSPrincipalClass: NSApplication
+        NSSupportsAutomaticTermination: false
+        NSSupportsSuddenTermination: false
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.narumi.VirtualScreen
+        PRODUCT_NAME: Virtual Screen
+        PRODUCT_MODULE_NAME: VirtualScreen
+        SWIFT_OBJC_BRIDGING_HEADER: VirtualScreen/Bridge/VirtualScreen-Bridging-Header.h
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+  VirtualScreenTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources:
+      - path: VirtualScreenTests
+    dependencies:
+      - target: VirtualScreen
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.narumi.VirtualScreenTests
+        GENERATE_INFOPLIST_FILE: true
+        TEST_HOST: $(BUILT_PRODUCTS_DIR)/Virtual Screen.app/Contents/MacOS/Virtual Screen
+        BUNDLE_LOADER: $(TEST_HOST)
+schemes:
+  VirtualScreen:
+    build:
+      targets:
+        VirtualScreen: all
+        VirtualScreenTests: [test]
+    run:
+      config: Debug
+    test:
+      config: Debug
+      targets:
+        - VirtualScreenTests
+      environmentVariables:
+        RUN_VIRTUAL_DISPLAY_TESTS: "$(RUN_VIRTUAL_DISPLAY_TESTS)"
+    archive:
+      config: Release

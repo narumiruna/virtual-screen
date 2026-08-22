@@ -1,0 +1,97 @@
+import CoreGraphics
+import Foundation
+@testable import VirtualScreen
+
+final class MemoryStateRepository: StatePersisting {
+    var state: PersistedState
+    private(set) var savedStates: [PersistedState] = []
+
+    init(state: PersistedState = PersistedState()) {
+        self.state = state
+    }
+
+    func load() -> PersistedState { state }
+
+    func save(_ state: PersistedState) {
+        self.state = state
+        savedStates.append(state)
+    }
+}
+
+final class FakeLaunchAtLoginManager: LaunchAtLoginManaging {
+    var status: LaunchAtLoginStatus = .disabled
+    var registerError: Error?
+    var unregisterError: Error?
+    private(set) var registerCallCount = 0
+    private(set) var unregisterCallCount = 0
+    private(set) var openSettingsCallCount = 0
+
+    func register() throws {
+        registerCallCount += 1
+        if let registerError { throw registerError }
+        if status != .requiresApproval { status = .enabled }
+    }
+
+    func unregister() throws {
+        unregisterCallCount += 1
+        if let unregisterError { throw unregisterError }
+        status = .disabled
+    }
+
+    func openSystemSettings() {
+        openSettingsCallCount += 1
+    }
+}
+
+final class FakeDisplayConnection: VirtualDisplayConnection {
+    let displayID: CGDirectDisplayID
+    private(set) var invalidated = false
+
+    init(displayID: CGDirectDisplayID) {
+        self.displayID = displayID
+    }
+
+    var isValid: Bool { !invalidated }
+
+    func invalidate() {
+        invalidated = true
+    }
+}
+
+final class FakeVirtualDisplayBackend: VirtualDisplayBackend {
+    var availability: VirtualDisplayBackendAvailability = .available
+    var connectError: Error?
+    var setResolutionError: Error?
+
+    private(set) var connectRequests: [(VirtualDisplayProfile, ResolutionPreset)] = []
+    private(set) var resolutionRequests: [(String, CGDirectDisplayID)] = []
+    private(set) var connections: [UUID: FakeDisplayConnection] = [:]
+    private var terminationHandlers: [UUID: () -> Void] = [:]
+    private var nextDisplayID: CGDirectDisplayID = 100
+
+    func connect(
+        profile: VirtualDisplayProfile,
+        resolution: ResolutionPreset,
+        terminationHandler: @escaping () -> Void
+    ) async throws -> any VirtualDisplayConnection {
+        connectRequests.append((profile, resolution))
+        if let connectError { throw connectError }
+        nextDisplayID += 1
+        let connection = FakeDisplayConnection(displayID: nextDisplayID)
+        connections[profile.id] = connection
+        terminationHandlers[profile.id] = terminationHandler
+        return connection
+    }
+
+    func setResolution(
+        _ resolution: ResolutionPreset,
+        for connection: any VirtualDisplayConnection
+    ) async throws {
+        if let setResolutionError { throw setResolutionError }
+        resolutionRequests.append((resolution.id, connection.displayID))
+    }
+
+    func terminate(profileID: UUID) {
+        terminationHandlers[profileID]?()
+    }
+}

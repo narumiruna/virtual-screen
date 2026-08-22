@@ -1,0 +1,51 @@
+"aspectRatio.16by9" = "16:9";
+"aspectRatio.16by10" = "16:10";
+
+"display.defaultName" = "Virtual Screen";
+
+"menu.noDisplays" = "No Virtual Displays";
+"menu.addDisplay" = "Add Virtual Display";
+"menu.connect" = "Connect";
+"menu.disconnect" = "Disconnect";
+"menu.resolution" = "Resolution";
+"menu.rename" = "Rename…";
+"menu.remove" = "Remove…";
+"menu.launchAtLogin" = "Launch at Login";
+"menu.about" = "About Virtual Screen";
+"menu.quit" = "Quit Virtual Screen";
+
+"status.disconnected" = "Disconnected";
+"status.connecting" = "Connecting…";
+"status.connected" = "Connected (Display ID %u)";
+"status.failed" = "Disconnected: %@";
+
+"dialog.8k.title" = "Use an 8K virtual display?";
+"dialog.8k.message" = "8K virtual displays use substantial memory and GPU resources. Multiple high-resolution displays may reduce system stability.";
+"dialog.continue" = "Continue";
+"dialog.cancel" = "Cancel";
+"dialog.rename.title" = "Rename Virtual Display";
+"dialog.rename.message" = "Enter a name for this virtual display.";
+"dialog.rename.placeholder" = "Display name";
+"dialog.rename" = "Rename";
+"dialog.remove.title" = "Remove Virtual Display?";
+"dialog.remove.message" = "“%@” is connected. It will be disconnected and its saved settings will be removed.";
+"dialog.remove" = "Remove";
+"dialog.error.title" = "Virtual Screen Error";
+"dialog.ok" = "OK";
+"dialog.loginApproval.title" = "Approve Launch at Login";
+"dialog.loginApproval.message" = "macOS requires approval before Virtual Screen can start at login. Approve it in System Settings > General > Login Items.";
+"dialog.openSettings" = "Open Login Items";
+"dialog.later" = "Later";
+
+"error.apiUnavailable" = "This version of macOS does not provide the required virtual display API.";
+"error.invalidConfiguration" = "The virtual display configuration is invalid.";
+"error.creationFailed" = "macOS could not create the virtual display. The system display limit may have been reached.";
+"error.settingsRejected" = "macOS rejected the requested virtual display settings.";
+"error.registrationTimedOut" = "The virtual display did not appear within two seconds.";
+"error.modeUnavailable" = "The selected resolution is not available on this Mac.";
+"error.modeSwitchFailed" = "macOS could not switch to the selected resolution.";
+"error.invalidated" = "The virtual display is no longer connected.";
+"error.unexpected" = "An unexpected error occurred: %@";
+"error.emptyName" = "The display name cannot be empty.";
+"error.loginItem" = "Could not update Launch at Login: %@";
+"error.unexpectedTermination" = "The virtual display was disconnected by macOS.";

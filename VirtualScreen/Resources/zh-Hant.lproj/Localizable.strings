@@ -1,0 +1,51 @@
+"aspectRatio.16by9" = "16:9";
+"aspectRatio.16by10" = "16:10";
+
+"display.defaultName" = "虛擬螢幕";
+
+"menu.noDisplays" = "尚無虛擬螢幕";
+"menu.addDisplay" = "新增虛擬螢幕";
+"menu.connect" = "連線";
+"menu.disconnect" = "中斷連線";
+"menu.resolution" = "解析度";
+"menu.rename" = "重新命名…";
+"menu.remove" = "移除…";
+"menu.launchAtLogin" = "登入時啟動";
+"menu.about" = "關於 Virtual Screen";
+"menu.quit" = "結束 Virtual Screen";
+
+"status.disconnected" = "未連線";
+"status.connecting" = "連線中…";
+"status.connected" = "已連線（顯示器 ID %u）";
+"status.failed" = "未連線：%@";
+
+"dialog.8k.title" = "使用 8K 虛擬螢幕？";
+"dialog.8k.message" = "8K 虛擬螢幕會大量使用記憶體與 GPU 資源。同時使用多個高解析度螢幕可能降低系統穩定性。";
+"dialog.continue" = "繼續";
+"dialog.cancel" = "取消";
+"dialog.rename.title" = "重新命名虛擬螢幕";
+"dialog.rename.message" = "輸入這個虛擬螢幕的名稱。";
+"dialog.rename.placeholder" = "螢幕名稱";
+"dialog.rename" = "重新命名";
+"dialog.remove.title" = "移除虛擬螢幕？";
+"dialog.remove.message" = "「%@」目前已連線。系統將中斷連線並移除其儲存設定。";
+"dialog.remove" = "移除";
+"dialog.error.title" = "Virtual Screen 錯誤";
+"dialog.ok" = "好";
+"dialog.loginApproval.title" = "允許登入時啟動";
+"dialog.loginApproval.message" = "macOS 需要取得核准，Virtual Screen 才能在登入時啟動。請前往「系統設定」>「一般」>「登入項目」允許此 App。";
+"dialog.openSettings" = "開啟登入項目";
+"dialog.later" = "稍後";
+
+"error.apiUnavailable" = "這個 macOS 版本不提供所需的虛擬顯示器 API。";
+"error.invalidConfiguration" = "虛擬顯示器設定無效。";
+"error.creationFailed" = "macOS 無法建立虛擬顯示器，可能已達系統顯示器數量上限。";
+"error.settingsRejected" = "macOS 拒絕了要求的虛擬顯示器設定。";
+"error.registrationTimedOut" = "虛擬顯示器未在兩秒內出現。";
+"error.modeUnavailable" = "這台 Mac 不提供所選解析度。";
+"error.modeSwitchFailed" = "macOS 無法切換至所選解析度。";
+"error.invalidated" = "虛擬顯示器已不再連線。";
+"error.unexpected" = "發生未預期的錯誤：%@";
+"error.emptyName" = "螢幕名稱不可為空白。";
+"error.loginItem" = "無法更新「登入時啟動」：%@";
+"error.unexpectedTermination" = "macOS 已中斷虛擬顯示器。";
