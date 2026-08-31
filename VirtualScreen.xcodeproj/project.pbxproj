@@ -406,7 +406,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.narumi.VirtualScreen;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.narumi.VirtualScreen;
 				PRODUCT_MODULE_NAME = VirtualScreen;
 				PRODUCT_NAME = "Virtual Screen";
 				SDKROOT = macosx;
@@ -426,7 +426,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.narumi.VirtualScreenTests;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.narumi.VirtualScreenTests;
 				SDKROOT = macosx;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Virtual Screen.app/Contents/MacOS/Virtual Screen";
 			};
@@ -519,7 +519,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.narumi.VirtualScreenTests;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.narumi.VirtualScreenTests;
 				SDKROOT = macosx;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Virtual Screen.app/Contents/MacOS/Virtual Screen";
 			};
@@ -537,7 +537,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.narumi.VirtualScreen;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.narumi.VirtualScreen;
 				PRODUCT_MODULE_NAME = VirtualScreen;
 				PRODUCT_NAME = "Virtual Screen";
 				SDKROOT = macosx;
