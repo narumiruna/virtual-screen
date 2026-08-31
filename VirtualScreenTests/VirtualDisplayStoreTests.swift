@@ -11,7 +11,7 @@ final class VirtualDisplayStoreTests: XCTestCase {
     await environment.store.addDisplay(resolution: preset)
 
     XCTAssertEqual(environment.store.profiles.count, 1)
-    XCTAssertEqual(environment.store.profiles[0].name, "Virtual Screen 1")
+    XCTAssertEqual(environment.store.profiles[0].name, "Display Loom 1")
     XCTAssertEqual(environment.store.profiles[0].resolutionID, preset.id)
     XCTAssertTrue(environment.store.profiles[0].desiredConnected)
     XCTAssertTrue(environment.store.state(for: environment.store.profiles[0].id).isConnected)

@@ -1,4 +1,4 @@
-# Virtual Screen
+# Display Loom
 
 A macOS menu bar app that creates multiple system-recognized virtual displays at up to 8K and 60 Hz.
 
@@ -27,7 +27,7 @@ Use its display icon to add, connect, rename, resize, mirror, disconnect, or rem
 
 Open a connected virtual display in the menu and choose **Mirror Display** to mirror an online built-in or external display. Choose **Do Not Mirror** to return it to an extended desktop.
 
-Virtual Screen remembers the selected source and restores mirroring after reconnecting the virtual display, relaunching the app, waking the Mac, or reconnecting the source display. While mirroring, macOS controls the compatible display mode, so the virtual display's saved resolution cannot be changed until mirroring is disabled.
+Display Loom remembers the selected source and restores mirroring after reconnecting the virtual display, relaunching the app, waking the Mac, or reconnecting the source display. While mirroring, macOS controls the compatible display mode, so the virtual display's saved resolution cannot be changed until mirroring is disabled.
 
 ## Resolutions
 

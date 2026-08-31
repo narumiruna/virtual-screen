@@ -15,7 +15,7 @@
 ## Architecture
 
 - 新增 `DisplayMirroringManaging` service，封裝以下系統責任：
-  - 列出 online display，排除目前 connection IDs 與 Virtual Screen vendor `0x4E52`，避免跨程序的 Virtual Screen 被誤列為來源。
+  - 列出 online display，排除目前 connection IDs 與 Display Loom vendor `0x4E52`，避免跨程序的 Display Loom 被誤列為來源。
   - 以 `NSScreen.localizedName` 提供使用者可辨識的來源名稱。
   - 使用 ColorSync display UUID 作為跨程序與重新連線的穩定來源識別，不持久化短期有效的 `CGDirectDisplayID`。
   - 使用 `CGBeginDisplayConfiguration`、`CGConfigureDisplayMirrorOfDisplay` 與 `CGCompleteDisplayConfiguration(..., .forSession)` 套用或解除同步。
@@ -47,7 +47,7 @@ flowchart LR
 ## Assumptions
 
 - 使用者已確認同步選擇需在 App 重啟與 Mac 喚醒後自動恢復。
-- 來源清單包含可取得穩定 UUID 的 online display，但排除目前 virtual connection IDs 與 Virtual Screen vendor `0x4E52`。
+- 來源清單包含可取得穩定 UUID 的 online display，但排除目前 virtual connection IDs 與 Display Loom vendor `0x4E52`。
 - 使用者主動中斷 profile 時保留來源 UUID，重新連線時恢復同步；選擇「不同步」或移除 profile 才清除該設定。
 - 若來源不存在，App 保留期望設定但不顯示阻斷式錯誤；使用者主動選擇來源而套用失敗時才顯示既有 error dialog。
 
@@ -60,7 +60,7 @@ flowchart LR
 
 ## Plan
 
-- [ ] 建立最小 opt-in feasibility test，於 `VirtualScreenTests/LiveVirtualDisplayTests.swift` 建立虛擬螢幕、將它同步至一個非 Virtual Screen online display、用 `CGDisplayMirrorsDisplay` 驗證，再於 `defer` 解除同步。2026-08-31 discovery：CoreGraphics mirror/unmirror 對兩個 virtual displays 已通過，但目前測試機只有 vendor `0x4E52` 的既有 Virtual Screen、沒有實體來源；final live test 會安全跳過 mirroring，需接上實體螢幕後重跑 `just test-live` 才能關閉此項。
+- [ ] 建立最小 opt-in feasibility test，於 `VirtualScreenTests/LiveVirtualDisplayTests.swift` 建立虛擬螢幕、將它同步至一個非 Display Loom online display、用 `CGDisplayMirrorsDisplay` 驗證，再於 `defer` 解除同步。2026-08-31 discovery：CoreGraphics mirror/unmirror 對兩個 virtual displays 已通過，但目前測試機只有 vendor `0x4E52` 的既有 Display Loom、沒有實體來源；final live test 會安全跳過 mirroring，需接上實體螢幕後重跑 `just test-live` 才能關閉此項。
 - [x] 在 `project.yml` 加入 ColorSync framework 並以 `just generate` 更新 Xcode project；`DisplayUUID` 提供 UUID round-trip，`DisplayMirroringManagerTests` 已驗證 main display 可解析回目前 `CGDirectDisplayID`。
 - [x] 新增 `VirtualScreen/Services/DisplayMirroringManager.swift` 的 `DisplayMirrorSource`、`DisplayMirroringManaging` 與 CoreGraphics implementation；來源列舉會排除傳入的 virtual IDs、區分重複名稱、以 `.forSession` 套用或解除同步，並將非 `.success` 的 `CGError` 映射成可本地化錯誤。
 - [x] 擴充 `VirtualScreenTests/TestDoubles.swift`，加入可控制來源清單、套用錯誤、實際狀態、reentrant callback 與 request history 的 fake mirroring manager；store tests 未操作真實顯示配置。
@@ -72,8 +72,8 @@ flowchart LR
 - [x] 更新 `VirtualScreen/UI/MenuBarContent.swift`，於已連線 profile 加入「同步顯示」submenu，提供「不同步」、來源清單、目前選項 checkmark 與來源不可用狀態；同步中停用解析度並顯示由來源控制。
 - [x] 更新英文與台灣正體中文 `Localizable.strings`，涵蓋同步選單、不可用來源、解析度受來源控制與 CoreGraphics 錯誤；`just test` 的 Debug build 已驗證 strings 可編譯。
 - [x] 更新 `README.md` 的使用方式與限制，說明同步來源選擇、自動恢復，以及同步模式由 macOS 控制相容解析度。
-- [x] 執行 `just test` 與 `just test-live`。證據：`just test` 通過 32 tests（1 個 opt-in skip）；`just test-live` 的 create、resolution switch 與 cleanup 通過，但因測試機沒有非 Virtual Screen 實體來源，mirror/unmirror 部分安全跳過。
-- [ ] 在至少有內建與外接螢幕其中一種來源的 Mac 手動驗收：選擇來源後畫面同步、選擇不同步後恢復延伸、斷線重連後恢復、App 重啟後恢復、睡眠喚醒後恢復、來源拔除與接回後恢復。2026-08-31 blocker：目前測試機的唯一 online display 是既有 Virtual Screen，需接上實體螢幕後完成並將結果記錄在 PR。
+- [x] 執行 `just test` 與 `just test-live`。證據：`just test` 通過 32 tests（1 個 opt-in skip）；`just test-live` 的 create、resolution switch 與 cleanup 通過，但因測試機沒有非 Display Loom 實體來源，mirror/unmirror 部分安全跳過。
+- [ ] 在至少有內建與外接螢幕其中一種來源的 Mac 手動驗收：選擇來源後畫面同步、選擇不同步後恢復延伸、斷線重連後恢復、App 重啟後恢復、睡眠喚醒後恢復、來源拔除與接回後恢復。2026-08-31 blocker：目前測試機的唯一 online display 是既有 Display Loom，需接上實體螢幕後完成並將結果記錄在 PR。
 
 ## Completion Checklist
 

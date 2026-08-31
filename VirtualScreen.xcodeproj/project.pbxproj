@@ -82,7 +82,7 @@
 		DFC83A9832A065B27EE5D60E /* LaunchAtLoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchAtLoginManager.swift; sourceTree = "<group>"; };
 		E10FB8F7CB3BB24C1B52AEB0 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		E36756C2028A05BCF66E9CAE /* VirtualDisplayStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualDisplayStore.swift; sourceTree = "<group>"; };
-		E42C55754322CD29C9B5DF79 /* Virtual Screen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Virtual Screen.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E42C55754322CD29C9B5DF79 /* Display Loom.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Display Loom.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,7 +138,7 @@
 		74EDD546265AD3FE23000492 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E42C55754322CD29C9B5DF79 /* Virtual Screen.app */,
+				E42C55754322CD29C9B5DF79 /* Display Loom.app */,
 				0392E537B66C2DCF9321307D /* VirtualScreenTests.xctest */,
 			);
 			name = Products;
@@ -273,7 +273,7 @@
 			packageProductDependencies = (
 			);
 			productName = VirtualScreen;
-			productReference = E42C55754322CD29C9B5DF79 /* Virtual Screen.app */;
+			productReference = E42C55754322CD29C9B5DF79 /* Display Loom.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -406,9 +406,9 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = dev.narumi.VirtualScreen;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.narumi.DisplayLoom;
 				PRODUCT_MODULE_NAME = VirtualScreen;
-				PRODUCT_NAME = "Virtual Screen";
+				PRODUCT_NAME = "Display Loom";
 				SDKROOT = macosx;
 				SWIFT_OBJC_BRIDGING_HEADER = "VirtualScreen/Bridge/VirtualScreen-Bridging-Header.h";
 			};
@@ -426,9 +426,9 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = dev.narumi.VirtualScreenTests;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.narumi.DisplayLoomTests;
 				SDKROOT = macosx;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Virtual Screen.app/Contents/MacOS/Virtual Screen";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Display Loom.app/Contents/MacOS/Display Loom";
 			};
 			name = Debug;
 		};
@@ -519,9 +519,9 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = dev.narumi.VirtualScreenTests;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.narumi.DisplayLoomTests;
 				SDKROOT = macosx;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Virtual Screen.app/Contents/MacOS/Virtual Screen";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Display Loom.app/Contents/MacOS/Display Loom";
 			};
 			name = Release;
 		};
@@ -537,9 +537,9 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = dev.narumi.VirtualScreen;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.narumi.DisplayLoom;
 				PRODUCT_MODULE_NAME = VirtualScreen;
-				PRODUCT_NAME = "Virtual Screen";
+				PRODUCT_NAME = "Display Loom";
 				SDKROOT = macosx;
 				SWIFT_OBJC_BRIDGING_HEADER = "VirtualScreen/Bridge/VirtualScreen-Bridging-Header.h";
 			};

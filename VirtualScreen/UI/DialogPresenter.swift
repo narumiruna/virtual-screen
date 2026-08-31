@@ -55,7 +55,7 @@ enum DialogPresenter {
 
   static func showError(_ message: String) {
     let alert = makeAlert(
-      title: String(localized: "dialog.error.title", defaultValue: "Virtual Screen Error"),
+      title: String(localized: "dialog.error.title", defaultValue: "Display Loom Error"),
       message: message,
       style: .critical
     )
@@ -70,7 +70,7 @@ enum DialogPresenter {
       message: String(
         localized: "dialog.loginApproval.message",
         defaultValue:
-          "macOS requires approval before Virtual Screen can start at login. Approve it in System Settings > General > Login Items."
+          "macOS requires approval before Display Loom can start at login. Approve it in System Settings > General > Login Items."
       ),
       style: .informational
     )

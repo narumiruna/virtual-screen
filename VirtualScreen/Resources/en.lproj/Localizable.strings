@@ -1,7 +1,7 @@
 "aspectRatio.16by9" = "16:9";
 "aspectRatio.16by10" = "16:10";
 
-"display.defaultName" = "Virtual Screen";
+"display.defaultName" = "Display Loom";
 "display.builtInName" = "Built-in Display";
 "display.externalName" = "External Display";
 "display.numberedName" = "%@ (%d)";
@@ -21,8 +21,8 @@
 "menu.rename" = "Rename…";
 "menu.remove" = "Remove…";
 "menu.launchAtLogin" = "Launch at Login";
-"menu.about" = "About Virtual Screen";
-"menu.quit" = "Quit Virtual Screen";
+"menu.about" = "About Display Loom";
+"menu.quit" = "Quit Display Loom";
 
 "status.disconnected" = "Disconnected";
 "status.connecting" = "Connecting…";
@@ -40,10 +40,10 @@
 "dialog.remove.title" = "Remove Virtual Display?";
 "dialog.remove.message" = "“%@” and its saved settings will be removed. This can’t be undone.";
 "dialog.remove" = "Remove";
-"dialog.error.title" = "Virtual Screen Error";
+"dialog.error.title" = "Display Loom Error";
 "dialog.ok" = "OK";
 "dialog.loginApproval.title" = "Approve Launch at Login";
-"dialog.loginApproval.message" = "macOS requires approval before Virtual Screen can start at login. Approve it in System Settings > General > Login Items.";
+"dialog.loginApproval.message" = "macOS requires approval before Display Loom can start at login. Approve it in System Settings > General > Login Items.";
 "dialog.openSettings" = "Open Login Items";
 "dialog.later" = "Later";
 

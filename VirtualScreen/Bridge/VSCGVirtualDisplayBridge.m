@@ -37,7 +37,7 @@
 - (uint32_t)displayID;
 @end
 
-NSErrorDomain const VSCGVirtualDisplayErrorDomain = @"com.narumi.VirtualScreen.CGVirtualDisplay";
+NSErrorDomain const VSCGVirtualDisplayErrorDomain = @"dev.narumi.DisplayLoom.CGVirtualDisplay";
 
 static NSError *VSCGMakeError(VSCGVirtualDisplayErrorCode code, NSString *description) {
     return [NSError errorWithDomain:VSCGVirtualDisplayErrorDomain
@@ -230,7 +230,7 @@ static void VSCGSendPoint(id target, SEL selector, CGPoint value) {
         VSCGSendPoint(descriptor, @selector(setWhitePoint:), CGPointMake(0.3127, 0.3290));
     }
 
-    dispatch_queue_t callbackQueue = dispatch_queue_create("com.narumi.VirtualScreen.termination", DISPATCH_QUEUE_SERIAL);
+    dispatch_queue_t callbackQueue = dispatch_queue_create("dev.narumi.DisplayLoom.termination", DISPATCH_QUEUE_SERIAL);
     if ([descriptor respondsToSelector:@selector(setDispatchQueue:)]) {
         VSCGSendObject(descriptor, @selector(setDispatchQueue:), callbackQueue);
     } else {

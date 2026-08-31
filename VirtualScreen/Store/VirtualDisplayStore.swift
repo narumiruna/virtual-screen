@@ -38,7 +38,7 @@ final class VirtualDisplayStore: ObservableObject {
   private let launchAtLoginManager: LaunchAtLoginManaging
   private let mirroringManager: any DisplayMirroringManaging
   private let wakeRetryDelayNanoseconds: UInt64
-  private let logger = Logger(subsystem: "com.narumi.VirtualScreen", category: "Store")
+  private let logger = Logger(subsystem: "dev.narumi.DisplayLoom", category: "Store")
 
   private var persistedState: PersistedState
   private var connections: [UUID: any VirtualDisplayConnection] = [:]
@@ -586,7 +586,7 @@ final class VirtualDisplayStore: ObservableObject {
   }
 
   private func nextAvailableDisplayName() -> String {
-    let baseName = String(localized: "display.defaultName", defaultValue: "Virtual Screen")
+    let baseName = String(localized: "display.defaultName", defaultValue: "Display Loom")
     let existingNames = Set(profiles.map(\.name))
     var number = 1
     while existingNames.contains("\(baseName) \(number)") {

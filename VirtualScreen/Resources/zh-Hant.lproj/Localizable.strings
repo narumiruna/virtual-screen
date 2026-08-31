@@ -21,8 +21,8 @@
 "menu.rename" = "重新命名…";
 "menu.remove" = "移除…";
 "menu.launchAtLogin" = "登入時啟動";
-"menu.about" = "關於 Virtual Screen";
-"menu.quit" = "結束 Virtual Screen";
+"menu.about" = "關於 Display Loom";
+"menu.quit" = "結束 Display Loom";
 
 "status.disconnected" = "未連線";
 "status.connecting" = "連線中…";
@@ -40,10 +40,10 @@
 "dialog.remove.title" = "移除虛擬螢幕？";
 "dialog.remove.message" = "將移除「%@」及其儲存設定。此操作無法復原。";
 "dialog.remove" = "移除";
-"dialog.error.title" = "Virtual Screen 錯誤";
+"dialog.error.title" = "Display Loom 錯誤";
 "dialog.ok" = "好";
 "dialog.loginApproval.title" = "允許登入時啟動";
-"dialog.loginApproval.message" = "macOS 需要取得核准，Virtual Screen 才能在登入時啟動。請前往「系統設定」>「一般」>「登入項目」允許此 App。";
+"dialog.loginApproval.message" = "macOS 需要取得核准，Display Loom 才能在登入時啟動。請前往「系統設定」>「一般」>「登入項目」允許此 App。";
 "dialog.openSettings" = "開啟登入項目";
 "dialog.later" = "稍後";
 

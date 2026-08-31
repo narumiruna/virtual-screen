@@ -20,7 +20,7 @@ struct VirtualScreenApp: App {
     MenuBarExtra {
       MenuBarContent(store: store)
     } label: {
-      Label("Virtual Screen", systemImage: "display.2")
+      Label("Display Loom", systemImage: "display.2")
         .labelStyle(.iconOnly)
     }
     .menuBarExtraStyle(.menu)

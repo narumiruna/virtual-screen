@@ -2,7 +2,7 @@ set shell := ["bash", "-eu", "-o", "pipefail", "-c"]
 
 developer_dir := env_var_or_default("DEVELOPER_DIR", "/Applications/Xcode.app/Contents/Developer")
 derived_data := ".derivedData"
-app_path := derived_data / "Build/Products/Debug/Virtual Screen.app"
+app_path := derived_data / "Build/Products/Debug/Display Loom.app"
 
 # List available recipes.
 default:

@@ -16,7 +16,7 @@ final class LiveVirtualDisplayTests: XCTestCase {
     }
 
     let profile = VirtualDisplayProfile(
-      name: "Virtual Screen Integration Test",
+      name: "Display Loom Integration Test",
       resolutionID: "1920x1080"
     )
     let connection = try await backend.connect(

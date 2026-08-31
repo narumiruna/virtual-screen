@@ -31,8 +31,8 @@ private final class CoreGraphicsVirtualDisplayConnection: VirtualDisplayConnecti
 
 final class CoreGraphicsVirtualDisplayBackend: VirtualDisplayBackend {
   private let workQueue = DispatchQueue(
-    label: "com.narumi.VirtualScreen.backend", qos: .userInitiated)
-  private let logger = Logger(subsystem: "com.narumi.VirtualScreen", category: "Backend")
+    label: "dev.narumi.DisplayLoom.backend", qos: .userInitiated)
+  private let logger = Logger(subsystem: "dev.narumi.DisplayLoom", category: "Backend")
 
   var availability: VirtualDisplayBackendAvailability {
     if VSCGVirtualDisplayHandle.isAPIAvailable {

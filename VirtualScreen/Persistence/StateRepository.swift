@@ -12,7 +12,7 @@ final class StateRepository: StatePersisting {
   private let defaults: UserDefaults
   private let encoder: JSONEncoder
   private let decoder: JSONDecoder
-  private let logger = Logger(subsystem: "com.narumi.VirtualScreen", category: "Persistence")
+  private let logger = Logger(subsystem: "dev.narumi.DisplayLoom", category: "Persistence")
 
   init(defaults: UserDefaults = .standard) {
     self.defaults = defaults
