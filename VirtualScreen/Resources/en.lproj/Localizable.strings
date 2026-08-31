@@ -16,6 +16,7 @@
 "menu.resolutionControlledByMirror" = "Resolution: Controlled by Mirror Source";
 "menu.mirrorDisplay" = "Mirror Display";
 "menu.mirrorNone" = "Do Not Mirror";
+"menu.mirrorRestoreFailed" = "Selected Source Is Not Active";
 "menu.mirrorSourceUnavailable" = "Selected Source Unavailable";
 "menu.rename" = "Rename…";
 "menu.remove" = "Remove…";

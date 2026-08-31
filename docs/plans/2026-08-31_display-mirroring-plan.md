@@ -67,11 +67,12 @@ flowchart LR
 - [x] 在 `VirtualScreen/Models/VirtualDisplayProfile.swift` 新增 optional `mirrorSourceID`，`PersistenceTests` 已驗證新資料 round-trip，以及不含新欄位的 version 1 JSON 載入後預設為不同步。
 - [x] 在 `VirtualScreen/Store/VirtualDisplayStore.swift` 注入 mirroring manager，公開可用與實際來源並實作選擇來源／不同步；單元測試已證明成功才持久化、失敗維持原設定並回報錯誤。
 - [x] 將同步恢復接到 `connectProfile`、`start`、`retryDesiredConnectionsAfterWake` 與 `NSApplication.didChangeScreenParametersNotification`；單元測試已涵蓋 target ID 改變、來源重新出現、通知重入、喚醒恢復及主動中斷保留來源。
+- [x] 修正自動恢復設定失敗時的狀態誤導：Store 保留可見失敗狀態，menu 以實際來源顯示 checkmark；`testRestoreFailureExposesActualStateAndClearsAfterRetry` 驗證後續重試成功會清除失敗。
 - [x] 在中斷、移除與 unexpected termination 流程以 best-effort 清理實際 mirror session；測試已證明中斷保留 UUID、移除刪除設定、termination 清除實際狀態。
 - [x] 更新 `VirtualScreen/UI/MenuBarContent.swift`，於已連線 profile 加入「同步顯示」submenu，提供「不同步」、來源清單、目前選項 checkmark 與來源不可用狀態；同步中停用解析度並顯示由來源控制。
 - [x] 更新英文與台灣正體中文 `Localizable.strings`，涵蓋同步選單、不可用來源、解析度受來源控制與 CoreGraphics 錯誤；`just test` 的 Debug build 已驗證 strings 可編譯。
 - [x] 更新 `README.md` 的使用方式與限制，說明同步來源選擇、自動恢復，以及同步模式由 macOS 控制相容解析度。
-- [ ] 執行 `just test` 與 `just test-live`。證據：`just test` 通過 31 tests（1 個 opt-in skip）；`just test-live` 的 create、resolution switch 與 cleanup 通過，但因測試機沒有非 Virtual Screen 實體來源，mirror/unmirror 部分安全跳過。
+- [ ] 執行 `just test` 與 `just test-live`。證據：`just test` 通過 32 tests（1 個 opt-in skip）；`just test-live` 的 create、resolution switch 與 cleanup 通過，但因測試機沒有非 Virtual Screen 實體來源，mirror/unmirror 部分安全跳過。
 - [ ] 在至少有內建與外接螢幕其中一種來源的 Mac 手動驗收：選擇來源後畫面同步、選擇不同步後恢復延伸、斷線重連後恢復、App 重啟後恢復、睡眠喚醒後恢復、來源拔除與接回後恢復。2026-08-31 blocker：目前測試機的唯一 online display 是既有 Virtual Screen，需接上實體螢幕後完成並將結果記錄在 PR。
 
 ## Completion Checklist

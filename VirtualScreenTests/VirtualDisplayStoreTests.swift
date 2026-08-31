@@ -284,6 +284,44 @@ final class VirtualDisplayStoreTests: XCTestCase {
         XCTAssertTrue(mirroringManager.excludedDisplayIDSets.contains([targetDisplayID]))
     }
 
+    func testRestoreFailureExposesActualStateAndClearsAfterRetry() async {
+        let source = makeMirrorSource()
+        let profile = VirtualDisplayProfile(
+            name: "Mirrored",
+            resolutionID: "1920x1080",
+            mirrorSourceID: source.id
+        )
+        let repository = MemoryStateRepository(
+            state: PersistedState(
+                profiles: [profile],
+                hasAttemptedLoginItemRegistration: true
+            )
+        )
+        let backend = FakeVirtualDisplayBackend()
+        let mirroringManager = FakeDisplayMirroringManager()
+        mirroringManager.sources = [source]
+        mirroringManager.setMirrorError = DisplayMirroringError.configurationFailed(1)
+        let store = VirtualDisplayStore(
+            backend: backend,
+            repository: repository,
+            launchAtLoginManager: FakeLaunchAtLoginManager(),
+            mirroringManager: mirroringManager,
+            wakeRetryDelayNanoseconds: 0
+        )
+
+        await store.start()
+
+        XCTAssertEqual(store.profile(id: profile.id)?.mirrorSourceID, source.id)
+        XCTAssertNil(store.activeMirrorSourceIDs[profile.id])
+        XCTAssertTrue(store.hasMirrorRestoreFailure(profileID: profile.id))
+
+        mirroringManager.setMirrorError = nil
+        store.handleDisplayReconfiguration()
+
+        XCTAssertEqual(store.activeMirrorSourceIDs[profile.id], source.id)
+        XCTAssertFalse(store.hasMirrorRestoreFailure(profileID: profile.id))
+    }
+
     func testReconnectUsesNewTargetAndKeepsDesiredMirrorSource() async {
         let environment = makeEnvironment()
         let source = makeMirrorSource()
@@ -333,6 +371,7 @@ final class VirtualDisplayStoreTests: XCTestCase {
         await store.start()
         XCTAssertTrue(mirroringManager.mirrorRequests.isEmpty)
         XCTAssertEqual(store.profile(id: profile.id)?.mirrorSourceID, source.id)
+        XCTAssertFalse(store.hasMirrorRestoreFailure(profileID: profile.id))
 
         mirroringManager.sources = [source]
         mirroringManager.onMirrorChange = { store.handleDisplayReconfiguration() }

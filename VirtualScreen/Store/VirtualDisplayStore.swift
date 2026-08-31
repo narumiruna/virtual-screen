@@ -31,6 +31,7 @@ final class VirtualDisplayStore: ObservableObject {
     @Published private(set) var lastErrorMessage: String?
     @Published private(set) var mirrorSources: [DisplayMirrorSource] = []
     @Published private(set) var activeMirrorSourceIDs: [UUID: UUID] = [:]
+    @Published private(set) var mirrorRestoreFailures: Set<UUID> = []
 
     private let backend: VirtualDisplayBackend
     private let repository: StatePersisting
@@ -121,6 +122,10 @@ final class VirtualDisplayStore: ObservableObject {
         activeMirrorSourceIDs[profileID] != nil
     }
 
+    func hasMirrorRestoreFailure(profileID: UUID) -> Bool {
+        mirrorRestoreFailures.contains(profileID)
+    }
+
     func setMirrorSource(_ sourceID: UUID?, for profileID: UUID) {
         guard let index = profiles.firstIndex(where: { $0.id == profileID }),
               let connection = connections[profileID] else {
@@ -144,6 +149,7 @@ final class VirtualDisplayStore: ObservableObject {
             )
             profiles[index].mirrorSourceID = sourceID
             activeMirrorSourceIDs[profileID] = sourceID
+            mirrorRestoreFailures.remove(profileID)
             save()
         } catch {
             activeMirrorSourceIDs[profileID] = mirroringManager.mirrorSourceID(
@@ -196,6 +202,7 @@ final class VirtualDisplayStore: ObservableObject {
         let connection = connections.removeValue(forKey: id)
         connection?.invalidate()
         activeMirrorSourceIDs[id] = nil
+        mirrorRestoreFailures.remove(id)
         connectionStates[id] = .disconnected
         save()
         logger.info("Disconnected virtual display \(id.uuidString, privacy: .public)")
@@ -255,6 +262,7 @@ final class VirtualDisplayStore: ObservableObject {
             clearActualMirror(profileID: id)
             connections.removeValue(forKey: id)?.invalidate()
             activeMirrorSourceIDs[id] = nil
+            mirrorRestoreFailures.remove(id)
             connectionStates[id] = .disconnected
             await connectProfile(id: id, updateDesiredState: false)
         }
@@ -265,6 +273,7 @@ final class VirtualDisplayStore: ObservableObject {
         clearActualMirror(profileID: id)
         connections.removeValue(forKey: id)?.invalidate()
         activeMirrorSourceIDs[id] = nil
+        mirrorRestoreFailures.remove(id)
         connectionStates[id] = nil
         profiles.removeAll { $0.id == id }
         save()
@@ -285,6 +294,7 @@ final class VirtualDisplayStore: ObservableObject {
                 connectionTokens[profile.id] = nil
                 connections[profile.id] = nil
                 activeMirrorSourceIDs[profile.id] = nil
+                mirrorRestoreFailures.remove(profile.id)
                 connection.invalidate()
                 connectionStates[profile.id] = .disconnected
             }
@@ -400,6 +410,7 @@ final class VirtualDisplayStore: ObservableObject {
         clearActualMirror(profileID: profileID)
         connections[profileID] = nil
         activeMirrorSourceIDs[profileID] = nil
+        mirrorRestoreFailures.remove(profileID)
         let message = String(localized: "error.unexpectedTermination", defaultValue: "The virtual display was disconnected by macOS.")
         connectionStates[profileID] = .failed(message: message)
         reportError(message)
@@ -507,12 +518,14 @@ final class VirtualDisplayStore: ObservableObject {
               let sourceID = profile.mirrorSourceID,
               let connection = connections[profileID] else {
             activeMirrorSourceIDs[profileID] = nil
+            mirrorRestoreFailures.remove(profileID)
             return
         }
         guard mirrorSources.contains(where: { $0.id == sourceID }) else {
             activeMirrorSourceIDs[profileID] = mirroringManager.mirrorSourceID(
                 for: connection.displayID
             )
+            mirrorRestoreFailures.remove(profileID)
             return
         }
 
@@ -522,10 +535,15 @@ final class VirtualDisplayStore: ObservableObject {
                 sourceID: sourceID
             )
             activeMirrorSourceIDs[profileID] = sourceID
+            mirrorRestoreFailures.remove(profileID)
         } catch {
-            activeMirrorSourceIDs[profileID] = mirroringManager.mirrorSourceID(
-                for: connection.displayID
-            )
+            let actualSourceID = mirroringManager.mirrorSourceID(for: connection.displayID)
+            activeMirrorSourceIDs[profileID] = actualSourceID
+            if actualSourceID == sourceID {
+                mirrorRestoreFailures.remove(profileID)
+            } else {
+                mirrorRestoreFailures.insert(profileID)
+            }
             logger.error(
                 "Could not restore mirroring for \(profileID.uuidString, privacy: .public): \(error.localizedDescription, privacy: .public)"
             )
