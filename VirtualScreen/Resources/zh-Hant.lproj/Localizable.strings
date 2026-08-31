@@ -2,6 +2,9 @@
 "aspectRatio.16by10" = "16:10";
 
 "display.defaultName" = "虛擬螢幕";
+"display.builtInName" = "內建顯示器";
+"display.externalName" = "外接顯示器";
+"display.numberedName" = "%@（%d）";
 
 "menu.noDisplays" = "尚無虛擬螢幕";
 "menu.addDisplay" = "新增虛擬螢幕";
@@ -10,6 +13,10 @@
 "menu.disconnect" = "中斷連線";
 "menu.resolution" = "解析度";
 "menu.resolutionCurrent" = "解析度：%@";
+"menu.resolutionControlledByMirror" = "解析度：由同步來源控制";
+"menu.mirrorDisplay" = "同步顯示";
+"menu.mirrorNone" = "不同步";
+"menu.mirrorSourceUnavailable" = "所選來源目前無法使用";
 "menu.rename" = "重新命名…";
 "menu.remove" = "移除…";
 "menu.launchAtLogin" = "登入時啟動";
@@ -46,6 +53,12 @@
 "error.registrationTimedOut" = "虛擬顯示器未在兩秒內出現。";
 "error.modeUnavailable" = "這台 Mac 不提供所選解析度。";
 "error.modeSwitchFailed" = "macOS 無法切換至所選解析度。";
+"error.resolutionMirrored" = "請先停止同步顯示，再變更解析度。";
+"error.displayList" = "無法列出顯示器（CoreGraphics 錯誤 %d）。";
+"error.mirrorTargetUnavailable" = "虛擬螢幕已無法使用。";
+"error.mirrorSourceUnavailable" = "所選來源顯示器目前無法使用。";
+"error.mirroring" = "無法更新同步顯示設定（CoreGraphics 錯誤 %d）。";
+"error.mirrorVerification" = "macOS 未套用要求的同步顯示設定。";
 "error.invalidated" = "虛擬顯示器已不再連線。";
 "error.unexpected" = "發生未預期的錯誤：%@";
 "error.emptyName" = "螢幕名稱不可為空白。";

@@ -58,6 +58,54 @@ final class FakeDisplayConnection: VirtualDisplayConnection {
     }
 }
 
+struct MirrorRequest: Equatable {
+    let targetDisplayID: CGDirectDisplayID
+    let sourceID: UUID?
+}
+
+@MainActor
+final class FakeDisplayMirroringManager: DisplayMirroringManaging {
+    var sources: [DisplayMirrorSource] = []
+    var availableSourcesError: Error?
+    var setMirrorError: Error?
+    var onMirrorChange: (() -> Void)?
+
+    private(set) var excludedDisplayIDSets: [Set<CGDirectDisplayID>] = []
+    private(set) var mirrorRequests: [MirrorRequest] = []
+    private(set) var actualSourceIDs: [CGDirectDisplayID: UUID] = [:]
+
+    func availableSources(excluding displayIDs: Set<CGDirectDisplayID>) throws -> [DisplayMirrorSource] {
+        excludedDisplayIDSets.append(displayIDs)
+        if let availableSourcesError { throw availableSourcesError }
+        return sources
+    }
+
+    func mirrorSourceID(for targetDisplayID: CGDirectDisplayID) -> UUID? {
+        actualSourceIDs[targetDisplayID]
+    }
+
+    func setMirror(targetDisplayID: CGDirectDisplayID, sourceID: UUID?) throws {
+        if let setMirrorError { throw setMirrorError }
+        guard actualSourceIDs[targetDisplayID] != sourceID else { return }
+
+        mirrorRequests.append(MirrorRequest(targetDisplayID: targetDisplayID, sourceID: sourceID))
+        if let sourceID {
+            actualSourceIDs[targetDisplayID] = sourceID
+        } else {
+            actualSourceIDs[targetDisplayID] = nil
+        }
+        onMirrorChange?()
+    }
+
+    func simulateActualMirror(targetDisplayID: CGDirectDisplayID, sourceID: UUID?) {
+        if let sourceID {
+            actualSourceIDs[targetDisplayID] = sourceID
+        } else {
+            actualSourceIDs[targetDisplayID] = nil
+        }
+    }
+}
+
 final class FakeVirtualDisplayBackend: VirtualDisplayBackend {
     var availability: VirtualDisplayBackendAvailability = .available
     var connectError: Error?

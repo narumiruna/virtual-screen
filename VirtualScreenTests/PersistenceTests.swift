@@ -7,7 +7,8 @@ final class PersistenceTests: XCTestCase {
             id: UUID(uuidString: "00112233-4455-6677-8899-AABBCCDDEEFF")!,
             name: "Editing",
             resolutionID: "3840x2160",
-            desiredConnected: true
+            desiredConnected: true,
+            mirrorSourceID: UUID(uuidString: "11112233-4455-6677-8899-AABBCCDDEEFF")!
         )
         let original = PersistedState(
             profiles: [profile],
@@ -20,6 +21,17 @@ final class PersistenceTests: XCTestCase {
 
         XCTAssertEqual(decoded, original)
         XCTAssertEqual(decoded.version, PersistedState.currentVersion)
+    }
+
+    func testVersionOneProfileWithoutMirrorSourceRemainsCompatible() throws {
+        let data = Data(
+            #"{"version":1,"profiles":[{"id":"00112233-4455-6677-8899-AABBCCDDEEFF","name":"Editing","resolutionID":"3840x2160","desiredConnected":true}],"hasAcknowledged8KWarning":false,"hasAttemptedLoginItemRegistration":true}"#.utf8
+        )
+
+        let decoded = try JSONDecoder().decode(PersistedState.self, from: data)
+
+        XCTAssertEqual(decoded.profiles.count, 1)
+        XCTAssertNil(decoded.profiles[0].mirrorSourceID)
     }
 
     func testStateRepositoryReturnsEmptyStateForCorruptData() {

@@ -108,10 +108,12 @@ final class VirtualDisplayStoreTests: XCTestCase {
         )
         let backend = FakeVirtualDisplayBackend()
         let loginManager = FakeLaunchAtLoginManager()
+        let mirroringManager = FakeDisplayMirroringManager()
         let store = VirtualDisplayStore(
             backend: backend,
             repository: repository,
             launchAtLoginManager: loginManager,
+            mirroringManager: mirroringManager,
             wakeRetryDelayNanoseconds: 0
         )
 
@@ -207,21 +209,250 @@ final class VirtualDisplayStoreTests: XCTestCase {
         XCTAssertFalse(environment.store.shouldShowLaunchAtLoginApproval)
     }
 
+    func testSelectingAndClearingMirrorSourcePersistsOnlySuccessfulChanges() async {
+        let environment = makeEnvironment()
+        let source = makeMirrorSource()
+        environment.mirroringManager.sources = [source]
+        await environment.store.addDisplay(resolution: ResolutionPreset.preset(withID: "1920x1080")!)
+        let profileID = environment.store.profiles[0].id
+        let targetDisplayID = environment.backend.connections[profileID]!.displayID
+
+        environment.store.setMirrorSource(source.id, for: profileID)
+
+        XCTAssertEqual(environment.store.profile(id: profileID)?.mirrorSourceID, source.id)
+        XCTAssertEqual(environment.store.activeMirrorSourceIDs[profileID], source.id)
+        XCTAssertEqual(
+            environment.mirroringManager.mirrorRequests.last,
+            MirrorRequest(targetDisplayID: targetDisplayID, sourceID: source.id)
+        )
+        XCTAssertEqual(environment.repository.state.profiles[0].mirrorSourceID, source.id)
+
+        environment.mirroringManager.setMirrorError = DisplayMirroringError.configurationFailed(1)
+        environment.store.setMirrorSource(UUID(), for: profileID)
+
+        XCTAssertEqual(environment.store.profile(id: profileID)?.mirrorSourceID, source.id)
+        XCTAssertEqual(environment.store.activeMirrorSourceIDs[profileID], source.id)
+        XCTAssertNotNil(environment.store.takeLastErrorMessage())
+
+        environment.mirroringManager.setMirrorError = nil
+        environment.mirroringManager.onMirrorChange = {
+            environment.store.handleDisplayReconfiguration()
+        }
+        environment.store.setMirrorSource(nil, for: profileID)
+
+        XCTAssertNil(environment.store.profile(id: profileID)?.mirrorSourceID)
+        XCTAssertNil(environment.store.activeMirrorSourceIDs[profileID])
+        XCTAssertNil(environment.mirroringManager.mirrorSourceID(for: targetDisplayID))
+        XCTAssertEqual(
+            environment.mirroringManager.mirrorRequests.last,
+            MirrorRequest(targetDisplayID: targetDisplayID, sourceID: nil)
+        )
+    }
+
+    func testStartRestoresPersistedMirrorAfterConnecting() async {
+        let source = makeMirrorSource()
+        let profile = VirtualDisplayProfile(
+            name: "Mirrored",
+            resolutionID: "1920x1080",
+            mirrorSourceID: source.id
+        )
+        let repository = MemoryStateRepository(
+            state: PersistedState(
+                profiles: [profile],
+                hasAttemptedLoginItemRegistration: true
+            )
+        )
+        let backend = FakeVirtualDisplayBackend()
+        let mirroringManager = FakeDisplayMirroringManager()
+        mirroringManager.sources = [source]
+        let store = VirtualDisplayStore(
+            backend: backend,
+            repository: repository,
+            launchAtLoginManager: FakeLaunchAtLoginManager(),
+            mirroringManager: mirroringManager,
+            wakeRetryDelayNanoseconds: 0
+        )
+
+        await store.start()
+
+        let targetDisplayID = backend.connections[profile.id]!.displayID
+        XCTAssertEqual(
+            mirroringManager.mirrorRequests,
+            [MirrorRequest(targetDisplayID: targetDisplayID, sourceID: source.id)]
+        )
+        XCTAssertTrue(store.isMirroring(profileID: profile.id))
+        XCTAssertTrue(mirroringManager.excludedDisplayIDSets.contains([targetDisplayID]))
+    }
+
+    func testReconnectUsesNewTargetAndKeepsDesiredMirrorSource() async {
+        let environment = makeEnvironment()
+        let source = makeMirrorSource()
+        environment.mirroringManager.sources = [source]
+        await environment.store.addDisplay(resolution: ResolutionPreset.preset(withID: "1920x1080")!)
+        let profileID = environment.store.profiles[0].id
+        let firstTarget = environment.backend.connections[profileID]!.displayID
+        environment.store.setMirrorSource(source.id, for: profileID)
+
+        environment.store.disconnectProfile(id: profileID)
+        await environment.store.connectProfile(id: profileID)
+
+        let secondTarget = environment.backend.connections[profileID]!.displayID
+        XCTAssertNotEqual(secondTarget, firstTarget)
+        XCTAssertEqual(environment.store.profile(id: profileID)?.mirrorSourceID, source.id)
+        XCTAssertEqual(
+            environment.mirroringManager.mirrorRequests.suffix(2),
+            [
+                MirrorRequest(targetDisplayID: firstTarget, sourceID: nil),
+                MirrorRequest(targetDisplayID: secondTarget, sourceID: source.id)
+            ]
+        )
+    }
+
+    func testUnavailableSourceRestoresWhenItReappearsWithoutReentrantLoop() async {
+        let source = makeMirrorSource()
+        let profile = VirtualDisplayProfile(
+            name: "Mirrored",
+            resolutionID: "1920x1080",
+            mirrorSourceID: source.id
+        )
+        let repository = MemoryStateRepository(
+            state: PersistedState(
+                profiles: [profile],
+                hasAttemptedLoginItemRegistration: true
+            )
+        )
+        let backend = FakeVirtualDisplayBackend()
+        let mirroringManager = FakeDisplayMirroringManager()
+        let store = VirtualDisplayStore(
+            backend: backend,
+            repository: repository,
+            launchAtLoginManager: FakeLaunchAtLoginManager(),
+            mirroringManager: mirroringManager,
+            wakeRetryDelayNanoseconds: 0
+        )
+        await store.start()
+        XCTAssertTrue(mirroringManager.mirrorRequests.isEmpty)
+        XCTAssertEqual(store.profile(id: profile.id)?.mirrorSourceID, source.id)
+
+        mirroringManager.sources = [source]
+        mirroringManager.onMirrorChange = { store.handleDisplayReconfiguration() }
+        store.handleDisplayReconfiguration()
+
+        let targetDisplayID = backend.connections[profile.id]!.displayID
+        XCTAssertEqual(
+            mirroringManager.mirrorRequests,
+            [MirrorRequest(targetDisplayID: targetDisplayID, sourceID: source.id)]
+        )
+        XCTAssertTrue(store.isMirroring(profileID: profile.id))
+    }
+
+    func testWakeRestoresMirrorIfSystemClearedIt() async {
+        let environment = makeEnvironment()
+        let source = makeMirrorSource()
+        environment.mirroringManager.sources = [source]
+        await environment.store.addDisplay(resolution: ResolutionPreset.preset(withID: "1920x1080")!)
+        let profileID = environment.store.profiles[0].id
+        let targetDisplayID = environment.backend.connections[profileID]!.displayID
+        environment.store.setMirrorSource(source.id, for: profileID)
+        environment.mirroringManager.simulateActualMirror(targetDisplayID: targetDisplayID, sourceID: nil)
+
+        await environment.store.retryDesiredConnectionsAfterWake()
+
+        XCTAssertEqual(
+            environment.mirroringManager.mirrorRequests.last,
+            MirrorRequest(targetDisplayID: targetDisplayID, sourceID: source.id)
+        )
+        XCTAssertTrue(environment.store.isMirroring(profileID: profileID))
+    }
+
+    func testDisconnectRemoveAndTerminationClearActualMirror() async {
+        let source = makeMirrorSource()
+
+        let disconnectEnvironment = makeEnvironment()
+        disconnectEnvironment.mirroringManager.sources = [source]
+        await disconnectEnvironment.store.addDisplay(resolution: ResolutionPreset.preset(withID: "1920x1080")!)
+        let disconnectedID = disconnectEnvironment.store.profiles[0].id
+        let disconnectedTarget = disconnectEnvironment.backend.connections[disconnectedID]!.displayID
+        disconnectEnvironment.store.setMirrorSource(source.id, for: disconnectedID)
+        disconnectEnvironment.store.disconnectProfile(id: disconnectedID)
+        XCTAssertEqual(disconnectEnvironment.store.profile(id: disconnectedID)?.mirrorSourceID, source.id)
+        XCTAssertEqual(
+            disconnectEnvironment.mirroringManager.mirrorRequests.last,
+            MirrorRequest(targetDisplayID: disconnectedTarget, sourceID: nil)
+        )
+
+        let removeEnvironment = makeEnvironment()
+        removeEnvironment.mirroringManager.sources = [source]
+        await removeEnvironment.store.addDisplay(resolution: ResolutionPreset.preset(withID: "1920x1080")!)
+        let removedID = removeEnvironment.store.profiles[0].id
+        let removedTarget = removeEnvironment.backend.connections[removedID]!.displayID
+        removeEnvironment.store.setMirrorSource(source.id, for: removedID)
+        removeEnvironment.store.removeProfile(id: removedID)
+        XCTAssertEqual(
+            removeEnvironment.mirroringManager.mirrorRequests.last,
+            MirrorRequest(targetDisplayID: removedTarget, sourceID: nil)
+        )
+        XCTAssertTrue(removeEnvironment.repository.state.profiles.isEmpty)
+
+        let terminationEnvironment = makeEnvironment()
+        terminationEnvironment.mirroringManager.sources = [source]
+        await terminationEnvironment.store.addDisplay(resolution: ResolutionPreset.preset(withID: "1920x1080")!)
+        let terminatedID = terminationEnvironment.store.profiles[0].id
+        let terminatedTarget = terminationEnvironment.backend.connections[terminatedID]!.displayID
+        terminationEnvironment.store.setMirrorSource(source.id, for: terminatedID)
+        terminationEnvironment.backend.terminate(profileID: terminatedID)
+        await Task.yield()
+        await Task.yield()
+        XCTAssertEqual(
+            terminationEnvironment.mirroringManager.mirrorRequests.last,
+            MirrorRequest(targetDisplayID: terminatedTarget, sourceID: nil)
+        )
+        XCTAssertNil(terminationEnvironment.store.activeMirrorSourceIDs[terminatedID])
+    }
+
+    func testResolutionChangeIsRejectedWhileMirroring() async {
+        let environment = makeEnvironment()
+        let source = makeMirrorSource()
+        environment.mirroringManager.sources = [source]
+        await environment.store.addDisplay(resolution: ResolutionPreset.preset(withID: "1920x1080")!)
+        let profileID = environment.store.profiles[0].id
+        environment.store.setMirrorSource(source.id, for: profileID)
+
+        await environment.store.setResolution(
+            ResolutionPreset.preset(withID: "2560x1440")!,
+            for: profileID
+        )
+
+        XCTAssertEqual(environment.store.profile(id: profileID)?.resolutionID, "1920x1080")
+        XCTAssertTrue(environment.backend.resolutionRequests.isEmpty)
+        XCTAssertNotNil(environment.store.takeLastErrorMessage())
+    }
+
+    private func makeMirrorSource() -> DisplayMirrorSource {
+        DisplayMirrorSource(
+            id: UUID(uuidString: "AAAAAAAA-BBBB-CCCC-DDDD-EEEEEEEEEEEE")!,
+            name: "Studio Display"
+        )
+    }
+
     private func makeEnvironment() -> (
         store: VirtualDisplayStore,
         backend: FakeVirtualDisplayBackend,
         repository: MemoryStateRepository,
-        loginManager: FakeLaunchAtLoginManager
+        loginManager: FakeLaunchAtLoginManager,
+        mirroringManager: FakeDisplayMirroringManager
     ) {
         let backend = FakeVirtualDisplayBackend()
         let repository = MemoryStateRepository()
         let loginManager = FakeLaunchAtLoginManager()
+        let mirroringManager = FakeDisplayMirroringManager()
         let store = VirtualDisplayStore(
             backend: backend,
             repository: repository,
             launchAtLoginManager: loginManager,
+            mirroringManager: mirroringManager,
             wakeRetryDelayNanoseconds: 0
         )
-        return (store, backend, repository, loginManager)
+        return (store, backend, repository, loginManager, mirroringManager)
     }
 }

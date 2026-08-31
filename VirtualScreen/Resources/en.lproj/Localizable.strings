@@ -2,6 +2,9 @@
 "aspectRatio.16by10" = "16:10";
 
 "display.defaultName" = "Virtual Screen";
+"display.builtInName" = "Built-in Display";
+"display.externalName" = "External Display";
+"display.numberedName" = "%@ (%d)";
 
 "menu.noDisplays" = "No Virtual Displays";
 "menu.addDisplay" = "Add Virtual Display";
@@ -10,6 +13,10 @@
 "menu.disconnect" = "Disconnect";
 "menu.resolution" = "Resolution";
 "menu.resolutionCurrent" = "Resolution: %@";
+"menu.resolutionControlledByMirror" = "Resolution: Controlled by Mirror Source";
+"menu.mirrorDisplay" = "Mirror Display";
+"menu.mirrorNone" = "Do Not Mirror";
+"menu.mirrorSourceUnavailable" = "Selected Source Unavailable";
 "menu.rename" = "Rename…";
 "menu.remove" = "Remove…";
 "menu.launchAtLogin" = "Launch at Login";
@@ -46,6 +53,12 @@
 "error.registrationTimedOut" = "The virtual display did not appear within two seconds.";
 "error.modeUnavailable" = "The selected resolution is not available on this Mac.";
 "error.modeSwitchFailed" = "macOS could not switch to the selected resolution.";
+"error.resolutionMirrored" = "Disconnect display mirroring before changing the resolution.";
+"error.displayList" = "Could not list displays (CoreGraphics error %d).";
+"error.mirrorTargetUnavailable" = "The virtual display is no longer available.";
+"error.mirrorSourceUnavailable" = "The selected source display is not available.";
+"error.mirroring" = "Could not update display mirroring (CoreGraphics error %d).";
+"error.mirrorVerification" = "macOS did not apply the requested display mirroring setting.";
 "error.invalidated" = "The virtual display is no longer connected.";
 "error.unexpected" = "An unexpected error occurred: %@";
 "error.emptyName" = "The display name cannot be empty.";
