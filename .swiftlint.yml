@@ -1,0 +1,4 @@
+disabled_rules:
+  # swift-format owns these rules and intentionally produces a different style.
+  - opening_brace
+  - trailing_comma

@@ -2,92 +2,110 @@ import CoreGraphics
 import Foundation
 
 enum VirtualDisplayBackendAvailability: Equatable, Sendable {
-    case available
-    case unavailable(reason: String)
+  case available
+  case unavailable(reason: String)
 
-    var isAvailable: Bool {
-        if case .available = self { return true }
-        return false
-    }
+  var isAvailable: Bool {
+    if case .available = self { return true }
+    return false
+  }
 }
 
 protocol VirtualDisplayConnection: AnyObject {
-    var displayID: CGDirectDisplayID { get }
-    var isValid: Bool { get }
-    func invalidate()
+  var displayID: CGDirectDisplayID { get }
+  var isValid: Bool { get }
+  func invalidate()
 }
 
 protocol VirtualDisplayBackend: AnyObject {
-    var availability: VirtualDisplayBackendAvailability { get }
+  var availability: VirtualDisplayBackendAvailability { get }
 
-    func connect(
-        profile: VirtualDisplayProfile,
-        resolution: ResolutionPreset,
-        terminationHandler: @escaping () -> Void
-    ) async throws -> any VirtualDisplayConnection
+  func connect(
+    profile: VirtualDisplayProfile,
+    resolution: ResolutionPreset,
+    terminationHandler: @escaping () -> Void
+  ) async throws -> any VirtualDisplayConnection
 
-    func setResolution(
-        _ resolution: ResolutionPreset,
-        for connection: any VirtualDisplayConnection
-    ) async throws
+  func setResolution(
+    _ resolution: ResolutionPreset,
+    for connection: any VirtualDisplayConnection
+  ) async throws
 }
 
 enum VirtualDisplayBackendError: LocalizedError, Equatable {
-    case apiUnavailable
-    case invalidConfiguration
-    case creationFailed
-    case settingsRejected
-    case registrationTimedOut
-    case modeUnavailable
-    case modeSwitchFailed
-    case invalidated
-    case unexpected(String)
+  case apiUnavailable
+  case invalidConfiguration
+  case creationFailed
+  case settingsRejected
+  case registrationTimedOut
+  case modeUnavailable
+  case modeSwitchFailed
+  case invalidated
+  case unexpected(String)
 
-    var errorDescription: String? {
-        switch self {
-        case .apiUnavailable:
-            return String(localized: "error.apiUnavailable", defaultValue: "This version of macOS does not provide the required virtual display API.")
-        case .invalidConfiguration:
-            return String(localized: "error.invalidConfiguration", defaultValue: "The virtual display configuration is invalid.")
-        case .creationFailed:
-            return String(localized: "error.creationFailed", defaultValue: "macOS could not create the virtual display. The system display limit may have been reached.")
-        case .settingsRejected:
-            return String(localized: "error.settingsRejected", defaultValue: "macOS rejected the requested virtual display settings.")
-        case .registrationTimedOut:
-            return String(localized: "error.registrationTimedOut", defaultValue: "The virtual display did not appear within two seconds.")
-        case .modeUnavailable:
-            return String(localized: "error.modeUnavailable", defaultValue: "The selected resolution is not available on this Mac.")
-        case .modeSwitchFailed:
-            return String(localized: "error.modeSwitchFailed", defaultValue: "macOS could not switch to the selected resolution.")
-        case .invalidated:
-            return String(localized: "error.invalidated", defaultValue: "The virtual display is no longer connected.")
-        case let .unexpected(detail):
-            return String(
-                format: String(localized: "error.unexpected", defaultValue: "An unexpected error occurred: %@"),
-                detail
-            )
-        }
+  var errorDescription: String? {
+    switch self {
+    case .apiUnavailable:
+      return String(
+        localized: "error.apiUnavailable",
+        defaultValue: "This version of macOS does not provide the required virtual display API.")
+    case .invalidConfiguration:
+      return String(
+        localized: "error.invalidConfiguration",
+        defaultValue: "The virtual display configuration is invalid.")
+    case .creationFailed:
+      return String(
+        localized: "error.creationFailed",
+        defaultValue:
+          "macOS could not create the virtual display. The system display limit may have been reached."
+      )
+    case .settingsRejected:
+      return String(
+        localized: "error.settingsRejected",
+        defaultValue: "macOS rejected the requested virtual display settings.")
+    case .registrationTimedOut:
+      return String(
+        localized: "error.registrationTimedOut",
+        defaultValue: "The virtual display did not appear within two seconds.")
+    case .modeUnavailable:
+      return String(
+        localized: "error.modeUnavailable",
+        defaultValue: "The selected resolution is not available on this Mac.")
+    case .modeSwitchFailed:
+      return String(
+        localized: "error.modeSwitchFailed",
+        defaultValue: "macOS could not switch to the selected resolution.")
+    case .invalidated:
+      return String(
+        localized: "error.invalidated", defaultValue: "The virtual display is no longer connected.")
+    case .unexpected(let detail):
+      return String(
+        format: String(
+          localized: "error.unexpected", defaultValue: "An unexpected error occurred: %@"),
+        detail
+      )
+    }
+  }
+
+  static func from(_ error: Error) -> VirtualDisplayBackendError {
+    if let backendError = error as? VirtualDisplayBackendError {
+      return backendError
+    }
+    let nsError = error as NSError
+    guard nsError.domain == VSCGVirtualDisplayErrorDomain else {
+      return .unexpected(nsError.localizedDescription)
     }
 
-    static func from(_ error: Error) -> VirtualDisplayBackendError {
-        if let backendError = error as? VirtualDisplayBackendError {
-            return backendError
-        }
-        let nsError = error as NSError
-        guard nsError.domain == VSCGVirtualDisplayErrorDomain else {
-            return .unexpected(nsError.localizedDescription)
-        }
-
-        switch nsError.code {
-        case 1: return .apiUnavailable
-        case 2: return .invalidConfiguration
-        case 3: return .creationFailed
-        case 4: return .settingsRejected
-        case 5: return .registrationTimedOut
-        case 6: return .modeUnavailable
-        case 7: return .modeSwitchFailed
-        case 8: return .invalidated
-        default: return .unexpected(nsError.localizedDescription)
-        }
+    switch nsError.code {
+    case 1: return .apiUnavailable
+    case 2: return .invalidConfiguration
+    case 3: return .creationFailed
+    case 4: return .settingsRejected
+    case 5: return .registrationTimedOut
+    case 6: return .modeUnavailable
+    case 7: return .modeSwitchFailed
+    case 8: return .invalidated
+    default: return .unexpected(nsError.localizedDescription)
     }
+  }
 }
