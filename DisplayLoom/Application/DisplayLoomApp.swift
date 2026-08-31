@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 
 @main
-struct VirtualScreenApp: App {
+struct DisplayLoomApp: App {
   @StateObject private var store: VirtualDisplayStore
 
   init() {

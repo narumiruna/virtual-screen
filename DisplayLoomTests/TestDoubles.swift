@@ -1,7 +1,7 @@
 import CoreGraphics
 import Foundation
 
-@testable import VirtualScreen
+@testable import DisplayLoom
 
 final class MemoryStateRepository: StatePersisting {
   var state: PersistedState

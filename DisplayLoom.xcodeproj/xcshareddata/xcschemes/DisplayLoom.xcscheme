@@ -16,8 +16,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "5FA4D0D9A9DC94AB4396CD9B"
                BuildableName = "Display Loom.app"
-               BlueprintName = "VirtualScreen"
-               ReferencedContainer = "container:VirtualScreen.xcodeproj">
+               BlueprintName = "DisplayLoom"
+               ReferencedContainer = "container:DisplayLoom.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -29,9 +29,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "12A2805CC08FFF95DCF3174F"
-               BuildableName = "VirtualScreenTests.xctest"
-               BlueprintName = "VirtualScreenTests"
-               ReferencedContainer = "container:VirtualScreen.xcodeproj">
+               BuildableName = "DisplayLoomTests.xctest"
+               BlueprintName = "DisplayLoomTests"
+               ReferencedContainer = "container:DisplayLoom.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -46,8 +46,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "5FA4D0D9A9DC94AB4396CD9B"
             BuildableName = "Display Loom.app"
-            BlueprintName = "VirtualScreen"
-            ReferencedContainer = "container:VirtualScreen.xcodeproj">
+            BlueprintName = "DisplayLoom"
+            ReferencedContainer = "container:DisplayLoom.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <EnvironmentVariables>
@@ -64,9 +64,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "12A2805CC08FFF95DCF3174F"
-               BuildableName = "VirtualScreenTests.xctest"
-               BlueprintName = "VirtualScreenTests"
-               ReferencedContainer = "container:VirtualScreen.xcodeproj">
+               BuildableName = "DisplayLoomTests.xctest"
+               BlueprintName = "DisplayLoomTests"
+               ReferencedContainer = "container:DisplayLoom.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -87,8 +87,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "5FA4D0D9A9DC94AB4396CD9B"
             BuildableName = "Display Loom.app"
-            BlueprintName = "VirtualScreen"
-            ReferencedContainer = "container:VirtualScreen.xcodeproj">
+            BlueprintName = "DisplayLoom"
+            ReferencedContainer = "container:DisplayLoom.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -104,8 +104,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "5FA4D0D9A9DC94AB4396CD9B"
             BuildableName = "Display Loom.app"
-            BlueprintName = "VirtualScreen"
-            ReferencedContainer = "container:VirtualScreen.xcodeproj">
+            BlueprintName = "DisplayLoom"
+            ReferencedContainer = "container:DisplayLoom.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

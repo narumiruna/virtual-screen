@@ -15,8 +15,8 @@ generate:
 # Build the Debug app without requiring a signing identity.
 build:
     DEVELOPER_DIR="{{developer_dir}}" xcodebuild \
-      -project VirtualScreen.xcodeproj \
-      -scheme VirtualScreen \
+      -project DisplayLoom.xcodeproj \
+      -scheme DisplayLoom \
       -configuration Debug \
       -derivedDataPath "{{derived_data}}" \
       CODE_SIGNING_ALLOWED=NO \
@@ -29,8 +29,8 @@ run: build
 # Run unit tests without creating a real virtual display.
 test:
     DEVELOPER_DIR="{{developer_dir}}" xcodebuild \
-      -project VirtualScreen.xcodeproj \
-      -scheme VirtualScreen \
+      -project DisplayLoom.xcodeproj \
+      -scheme DisplayLoom \
       -derivedDataPath "{{derived_data}}" \
       CODE_SIGNING_ALLOWED=NO \
       test
@@ -38,19 +38,19 @@ test:
 # Run the opt-in test that creates and switches a real virtual display.
 test-live:
     DEVELOPER_DIR="{{developer_dir}}" xcodebuild \
-      -project VirtualScreen.xcodeproj \
-      -scheme VirtualScreen \
+      -project DisplayLoom.xcodeproj \
+      -scheme DisplayLoom \
       -derivedDataPath "{{derived_data}}" \
       CODE_SIGNING_ALLOWED=NO \
       RUN_VIRTUAL_DISPLAY_TESTS=1 \
-      -only-testing:VirtualScreenTests/LiveVirtualDisplayTests/testCreatesAndSwitchesARealVirtualDisplayWhenExplicitlyEnabled \
+      -only-testing:DisplayLoomTests/LiveVirtualDisplayTests/testCreatesAndSwitchesARealVirtualDisplayWhenExplicitlyEnabled \
       test
 
 # Build a universal Release app without requiring a signing identity.
 release:
     DEVELOPER_DIR="{{developer_dir}}" xcodebuild \
-      -project VirtualScreen.xcodeproj \
-      -scheme VirtualScreen \
+      -project DisplayLoom.xcodeproj \
+      -scheme DisplayLoom \
       -configuration Release \
       -derivedDataPath "{{derived_data}}" \
       CODE_SIGNING_ALLOWED=NO \

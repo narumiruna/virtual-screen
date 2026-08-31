@@ -27,7 +27,7 @@
 		AB9FAAED8E161C4AECBBF220 /* MenuBarContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA2F342E45E606EAD74DD46 /* MenuBarContent.swift */; };
 		AD2BA2D0205C41A4715C766A /* StateRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6291E17D85E9FC0AA7D4D1 /* StateRepository.swift */; };
 		D215D2D0A29677BAC65E6490 /* VirtualDisplayStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D85D7EE66F5E34DA578CED8 /* VirtualDisplayStoreTests.swift */; };
-		DC3841A14C8F246CF761CCD5 /* VirtualScreenApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA671942716BF1D06E8FBF4D /* VirtualScreenApp.swift */; };
+		DC3841A14C8F246CF761CCD5 /* DisplayLoomApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA671942716BF1D06E8FBF4D /* DisplayLoomApp.swift */; };
 		DD55A4CF935411F6315DE184 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E67705D6FB65B04B552FAD3 /* AppKit.framework */; };
 		E17E25728A25B03BA313B2AD /* PersistedState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A724875EA94B73532FDE20FD /* PersistedState.swift */; };
 		EA36056EC0BB67F318F7ED63 /* TestDoubles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 979328D9BA4A38EE7A3B800F /* TestDoubles.swift */; };
@@ -43,12 +43,12 @@
 			containerPortal = C100FD3A9AF5ECD0EFC28BB7 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 5FA4D0D9A9DC94AB4396CD9B;
-			remoteInfo = VirtualScreen;
+			remoteInfo = DisplayLoom;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0392E537B66C2DCF9321307D /* VirtualScreenTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VirtualScreenTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0392E537B66C2DCF9321307D /* DisplayLoomTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DisplayLoomTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E8499D2842E8624980158C3 /* VirtualDisplayBackend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualDisplayBackend.swift; sourceTree = "<group>"; };
 		1C6291E17D85E9FC0AA7D4D1 /* StateRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateRepository.swift; sourceTree = "<group>"; };
 		2D42331884625ED13A815B12 /* ColorSync.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ColorSync.framework; path = System/Library/Frameworks/ColorSync.framework; sourceTree = SDKROOT; };
@@ -57,7 +57,7 @@
 		3BCD1322A836F337EB31771B /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
 		4E67705D6FB65B04B552FAD3 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		5990FE91BF69A576AE2F72DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		5B37222FF31FCC47C454DDFE /* VirtualScreen-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VirtualScreen-Bridging-Header.h"; sourceTree = "<group>"; };
+		5B37222FF31FCC47C454DDFE /* DisplayLoom-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DisplayLoom-Bridging-Header.h"; sourceTree = "<group>"; };
 		60F7279C6154215038440927 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		61D60F30683C1B7DA9A0862A /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		6529809543E34CB72FEDAA5B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -72,7 +72,7 @@
 		AEA9DD8B8929B6EDF29625D0 /* PersistenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceTests.swift; sourceTree = "<group>"; };
 		B78E6E4A60EB357911C9D43C /* StableDisplayIdentity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StableDisplayIdentity.swift; sourceTree = "<group>"; };
 		B94287CA53A8E8A63416FD55 /* DisplayMirroringManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayMirroringManagerTests.swift; sourceTree = "<group>"; };
-		BA671942716BF1D06E8FBF4D /* VirtualScreenApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualScreenApp.swift; sourceTree = "<group>"; };
+		BA671942716BF1D06E8FBF4D /* DisplayLoomApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayLoomApp.swift; sourceTree = "<group>"; };
 		BF12D86B9444D63B9ACDE2AC /* VSCGVirtualDisplayBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VSCGVirtualDisplayBridge.m; sourceTree = "<group>"; };
 		BF306AEE45D19B9D635E8C06 /* ResolutionPreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResolutionPreset.swift; sourceTree = "<group>"; };
 		C545E878852767D7EB272E9F /* VSCGVirtualDisplayBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VSCGVirtualDisplayBridge.h; sourceTree = "<group>"; };
@@ -128,7 +128,7 @@
 		635CC47FCDB00AE1694C1775 /* Bridge */ = {
 			isa = PBXGroup;
 			children = (
-				5B37222FF31FCC47C454DDFE /* VirtualScreen-Bridging-Header.h */,
+				5B37222FF31FCC47C454DDFE /* DisplayLoom-Bridging-Header.h */,
 				C545E878852767D7EB272E9F /* VSCGVirtualDisplayBridge.h */,
 				BF12D86B9444D63B9ACDE2AC /* VSCGVirtualDisplayBridge.m */,
 			);
@@ -139,7 +139,7 @@
 			isa = PBXGroup;
 			children = (
 				E42C55754322CD29C9B5DF79 /* Display Loom.app */,
-				0392E537B66C2DCF9321307D /* VirtualScreenTests.xctest */,
+				0392E537B66C2DCF9321307D /* DisplayLoomTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -152,7 +152,7 @@
 			path = Store;
 			sourceTree = "<group>";
 		};
-		A180A7F44BBF60122450F86D /* VirtualScreenTests */ = {
+		A180A7F44BBF60122450F86D /* DisplayLoomTests */ = {
 			isa = PBXGroup;
 			children = (
 				B94287CA53A8E8A63416FD55 /* DisplayMirroringManagerTests.swift */,
@@ -162,7 +162,7 @@
 				979328D9BA4A38EE7A3B800F /* TestDoubles.swift */,
 				9D85D7EE66F5E34DA578CED8 /* VirtualDisplayStoreTests.swift */,
 			);
-			path = VirtualScreenTests;
+			path = DisplayLoomTests;
 			sourceTree = "<group>";
 		};
 		A1A499395EC0D52815C6AC97 /* Models */ = {
@@ -174,7 +174,7 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		C357FF424BDD58D0B7324489 /* VirtualScreen */ = {
+		C357FF424BDD58D0B7324489 /* DisplayLoom */ = {
 			isa = PBXGroup;
 			children = (
 				C6D33218D187D8D0C0D490C8 /* Assets.xcassets */,
@@ -187,7 +187,7 @@
 				86CD7F0F322AA8E712FDDFE0 /* Store */,
 				E47B3BA90B31BD6345AE75B9 /* UI */,
 			);
-			path = VirtualScreen;
+			path = DisplayLoom;
 			sourceTree = "<group>";
 		};
 		C66D27DBD6278D1559B78B82 /* Resources */ = {
@@ -203,8 +203,8 @@
 		CD4064CA4C92F3DFE64CDE43 = {
 			isa = PBXGroup;
 			children = (
-				C357FF424BDD58D0B7324489 /* VirtualScreen */,
-				A180A7F44BBF60122450F86D /* VirtualScreenTests */,
+				C357FF424BDD58D0B7324489 /* DisplayLoom */,
+				A180A7F44BBF60122450F86D /* DisplayLoomTests */,
 				5CB0C058E1C762FE5773FA7F /* Frameworks */,
 				74EDD546265AD3FE23000492 /* Products */,
 			);
@@ -222,7 +222,7 @@
 		D47571E36402E34A4AC7B541 /* Application */ = {
 			isa = PBXGroup;
 			children = (
-				BA671942716BF1D06E8FBF4D /* VirtualScreenApp.swift */,
+				BA671942716BF1D06E8FBF4D /* DisplayLoomApp.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -239,9 +239,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		12A2805CC08FFF95DCF3174F /* VirtualScreenTests */ = {
+		12A2805CC08FFF95DCF3174F /* DisplayLoomTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 677D770CF371F16335950607 /* Build configuration list for PBXNativeTarget "VirtualScreenTests" */;
+			buildConfigurationList = 677D770CF371F16335950607 /* Build configuration list for PBXNativeTarget "DisplayLoomTests" */;
 			buildPhases = (
 				B2D7B0A48CEB86E3B3B90E0D /* Sources */,
 			);
@@ -250,16 +250,16 @@
 			dependencies = (
 				D8D056882FEEDC267BACD4B4 /* PBXTargetDependency */,
 			);
-			name = VirtualScreenTests;
+			name = DisplayLoomTests;
 			packageProductDependencies = (
 			);
-			productName = VirtualScreenTests;
-			productReference = 0392E537B66C2DCF9321307D /* VirtualScreenTests.xctest */;
+			productName = DisplayLoomTests;
+			productReference = 0392E537B66C2DCF9321307D /* DisplayLoomTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		5FA4D0D9A9DC94AB4396CD9B /* VirtualScreen */ = {
+		5FA4D0D9A9DC94AB4396CD9B /* DisplayLoom */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6B93DC03F3BC229098F239B9 /* Build configuration list for PBXNativeTarget "VirtualScreen" */;
+			buildConfigurationList = 6B93DC03F3BC229098F239B9 /* Build configuration list for PBXNativeTarget "DisplayLoom" */;
 			buildPhases = (
 				6D68DB1FB387DB44EFA976A4 /* Sources */,
 				12E45EE057E6F8130D4E3AC9 /* Resources */,
@@ -269,10 +269,10 @@
 			);
 			dependencies = (
 			);
-			name = VirtualScreen;
+			name = DisplayLoom;
 			packageProductDependencies = (
 			);
-			productName = VirtualScreen;
+			productName = DisplayLoom;
 			productReference = E42C55754322CD29C9B5DF79 /* Display Loom.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -293,7 +293,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 76744BEA2D2ACEF5C07861F0 /* Build configuration list for PBXProject "VirtualScreen" */;
+			buildConfigurationList = 76744BEA2D2ACEF5C07861F0 /* Build configuration list for PBXProject "DisplayLoom" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -308,8 +308,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				5FA4D0D9A9DC94AB4396CD9B /* VirtualScreen */,
-				12A2805CC08FFF95DCF3174F /* VirtualScreenTests */,
+				5FA4D0D9A9DC94AB4396CD9B /* DisplayLoom */,
+				12A2805CC08FFF95DCF3174F /* DisplayLoomTests */,
 			);
 		};
 /* End PBXProject section */
@@ -345,7 +345,7 @@
 				FD8E37B8E92894BEECE81B66 /* VirtualDisplayBackend.swift in Sources */,
 				3668BF84944E6911111217CD /* VirtualDisplayProfile.swift in Sources */,
 				F1711C95DBDF95130713240F /* VirtualDisplayStore.swift in Sources */,
-				DC3841A14C8F246CF761CCD5 /* VirtualScreenApp.swift in Sources */,
+				DC3841A14C8F246CF761CCD5 /* DisplayLoomApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -367,7 +367,7 @@
 /* Begin PBXTargetDependency section */
 		D8D056882FEEDC267BACD4B4 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 5FA4D0D9A9DC94AB4396CD9B /* VirtualScreen */;
+			target = 5FA4D0D9A9DC94AB4396CD9B /* DisplayLoom */;
 			targetProxy = 16C0D202C6220CCC8FF02A6F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -401,16 +401,16 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEAD_CODE_STRIPPING = YES;
-				INFOPLIST_FILE = VirtualScreen/Resources/Info.plist;
+				INFOPLIST_FILE = DisplayLoom/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = dev.narumi.DisplayLoom;
-				PRODUCT_MODULE_NAME = VirtualScreen;
+				PRODUCT_MODULE_NAME = DisplayLoom;
 				PRODUCT_NAME = "Display Loom";
 				SDKROOT = macosx;
-				SWIFT_OBJC_BRIDGING_HEADER = "VirtualScreen/Bridge/VirtualScreen-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "DisplayLoom/Bridge/DisplayLoom-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -532,16 +532,16 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEAD_CODE_STRIPPING = YES;
-				INFOPLIST_FILE = VirtualScreen/Resources/Info.plist;
+				INFOPLIST_FILE = DisplayLoom/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = dev.narumi.DisplayLoom;
-				PRODUCT_MODULE_NAME = VirtualScreen;
+				PRODUCT_MODULE_NAME = DisplayLoom;
 				PRODUCT_NAME = "Display Loom";
 				SDKROOT = macosx;
-				SWIFT_OBJC_BRIDGING_HEADER = "VirtualScreen/Bridge/VirtualScreen-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "DisplayLoom/Bridge/DisplayLoom-Bridging-Header.h";
 			};
 			name = Debug;
 		};
@@ -616,7 +616,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		677D770CF371F16335950607 /* Build configuration list for PBXNativeTarget "VirtualScreenTests" */ = {
+		677D770CF371F16335950607 /* Build configuration list for PBXNativeTarget "DisplayLoomTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				732BD8D989F2F437CFDD9A0B /* Debug */,
@@ -625,7 +625,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		6B93DC03F3BC229098F239B9 /* Build configuration list for PBXNativeTarget "VirtualScreen" */ = {
+		6B93DC03F3BC229098F239B9 /* Build configuration list for PBXNativeTarget "DisplayLoom" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CFF9E3968DE88100CFE6FAC1 /* Debug */,
@@ -634,7 +634,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		76744BEA2D2ACEF5C07861F0 /* Build configuration list for PBXProject "VirtualScreen" */ = {
+		76744BEA2D2ACEF5C07861F0 /* Build configuration list for PBXProject "DisplayLoom" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				76819B15B98E0B55EB72F8D3 /* Debug */,
