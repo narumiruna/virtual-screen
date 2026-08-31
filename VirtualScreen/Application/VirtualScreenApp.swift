@@ -3,26 +3,26 @@ import SwiftUI
 
 @main
 struct VirtualScreenApp: App {
-    @StateObject private var store: VirtualDisplayStore
+  @StateObject private var store: VirtualDisplayStore
 
-    init() {
-        let store = VirtualDisplayStore()
-        _store = StateObject(wrappedValue: store)
+  init() {
+    let store = VirtualDisplayStore()
+    _store = StateObject(wrappedValue: store)
 
-        if ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] == nil {
-            Task { @MainActor in
-                await store.start()
-            }
-        }
+    if ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] == nil {
+      Task { @MainActor in
+        await store.start()
+      }
     }
+  }
 
-    var body: some Scene {
-        MenuBarExtra {
-            MenuBarContent(store: store)
-        } label: {
-            Label("Virtual Screen", systemImage: "display.2")
-                .labelStyle(.iconOnly)
-        }
-        .menuBarExtraStyle(.menu)
+  var body: some Scene {
+    MenuBarExtra {
+      MenuBarContent(store: store)
+    } label: {
+      Label("Virtual Screen", systemImage: "display.2")
+        .labelStyle(.iconOnly)
     }
+    .menuBarExtraStyle(.menu)
+  }
 }
