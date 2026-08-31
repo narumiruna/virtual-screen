@@ -1,0 +1,29 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: mixed-line-ending
+        args: ["--fix=lf"]
+      - id: trailing-whitespace
+  - repo: local
+    hooks:
+      - id: swiftlint
+        name: SwiftLint
+        entry: env DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer swiftlint --fix
+        language: system
+        types: [swift]
+        require_serial: true
+      - id: swift-format
+        name: swift-format
+        entry: swift-format format --in-place --recursive --parallel
+        language: system
+        types: [swift]
+        require_serial: true
+      - id: swift-format-lint
+        name: swift-format-lint
+        entry: swift-format lint --strict --recursive --parallel
+        language: system
+        types: [swift]
+        require_serial: true
