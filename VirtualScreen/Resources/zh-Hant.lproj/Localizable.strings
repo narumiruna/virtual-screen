@@ -5,9 +5,11 @@
 
 "menu.noDisplays" = "尚無虛擬螢幕";
 "menu.addDisplay" = "新增虛擬螢幕";
+"menu.addDisplayWithResolution" = "以指定解析度新增…";
 "menu.connect" = "連線";
 "menu.disconnect" = "中斷連線";
 "menu.resolution" = "解析度";
+"menu.resolutionCurrent" = "解析度：%@";
 "menu.rename" = "重新命名…";
 "menu.remove" = "移除…";
 "menu.launchAtLogin" = "登入時啟動";
@@ -28,7 +30,7 @@
 "dialog.rename.placeholder" = "螢幕名稱";
 "dialog.rename" = "重新命名";
 "dialog.remove.title" = "移除虛擬螢幕？";
-"dialog.remove.message" = "「%@」目前已連線。系統將中斷連線並移除其儲存設定。";
+"dialog.remove.message" = "將移除「%@」及其儲存設定。此操作無法復原。";
 "dialog.remove" = "移除";
 "dialog.error.title" = "Virtual Screen 錯誤";
 "dialog.ok" = "好";

@@ -19,7 +19,7 @@ struct MenuBarContent: View {
             }
 
             Divider()
-            addDisplayMenu
+            addDisplayControls
             Divider()
 
             Toggle(
@@ -52,20 +52,23 @@ struct MenuBarContent: View {
     private func profileMenu(_ profile: VirtualDisplayProfile) -> some View {
         let state = store.state(for: profile.id)
         Menu {
-            Button(statusText(for: state)) {}
-                .disabled(true)
+            statusMessage(for: state)
 
             if state.isConnected || state.isBusy {
-                Button("menu.disconnect") {
+                Button {
                     store.disconnectProfile(id: profile.id)
+                } label: {
+                    Label("menu.disconnect", systemImage: "stop.circle")
                 }
                 .disabled(state.isBusy)
             } else {
-                Button("menu.connect") {
+                Button {
                     Task {
                         await store.connectProfile(id: profile.id)
                         presentStoreErrorIfNeeded()
                     }
+                } label: {
+                    Label("menu.connect", systemImage: "play.circle")
                 }
             }
 
@@ -73,24 +76,26 @@ struct MenuBarContent: View {
 
             Divider()
 
-            Button("menu.rename") {
+            Button {
                 guard let name = DialogPresenter.requestName(currentName: profile.name) else { return }
                 Task {
                     await store.renameProfile(id: profile.id, to: name)
                     presentStoreErrorIfNeeded()
                 }
+            } label: {
+                Label("menu.rename", systemImage: "pencil")
             }
             .disabled(state.isBusy)
 
-            Button("menu.remove") {
-                if state.isConnected && !DialogPresenter.confirmRemoval(name: profile.name) {
-                    return
-                }
+            Button(role: .destructive) {
+                guard DialogPresenter.confirmRemoval(name: profile.name) else { return }
                 store.removeProfile(id: profile.id)
+            } label: {
+                Label("menu.remove", systemImage: "trash")
             }
             .disabled(state.isBusy)
         } label: {
-            Label(profileLabel(profile), systemImage: statusSymbol(for: state))
+            Label(profile.name, systemImage: statusSymbol(for: state))
         }
     }
 
@@ -98,7 +103,7 @@ struct MenuBarContent: View {
         for profile: VirtualDisplayProfile,
         state: DisplayConnectionState
     ) -> some View {
-        Menu("menu.resolution") {
+        Menu {
             ForEach(DisplayAspectRatio.allCases) { aspectRatio in
                 Menu(aspectRatio.localizedName) {
                     ForEach(ResolutionPreset.presets(for: aspectRatio)) { preset in
@@ -114,12 +119,27 @@ struct MenuBarContent: View {
                     }
                 }
             }
+        } label: {
+            Text(
+                String(
+                    format: String(localized: "menu.resolutionCurrent", defaultValue: "Resolution: %@"),
+                    profile.resolution?.displayName ?? profile.resolutionID
+                )
+            )
         }
         .disabled(state.isBusy)
     }
 
-    private var addDisplayMenu: some View {
-        Menu("menu.addDisplay") {
+    @ViewBuilder
+    private var addDisplayControls: some View {
+        Button {
+            addDisplay(Self.recommendedResolution)
+        } label: {
+            Label("menu.addDisplay", systemImage: "plus")
+        }
+        .disabled(!store.backendAvailability.isAvailable)
+
+        Menu {
             ForEach(DisplayAspectRatio.allCases) { aspectRatio in
                 Menu(aspectRatio.localizedName) {
                     ForEach(ResolutionPreset.presets(for: aspectRatio)) { preset in
@@ -129,6 +149,8 @@ struct MenuBarContent: View {
                     }
                 }
             }
+        } label: {
+            Label("menu.addDisplayWithResolution", systemImage: "slider.horizontal.3")
         }
         .disabled(!store.backendAvailability.isAvailable)
     }
@@ -182,29 +204,28 @@ struct MenuBarContent: View {
         DialogPresenter.showError(message)
     }
 
-    private func profileLabel(_ profile: VirtualDisplayProfile) -> String {
-        let resolutionName = profile.resolution?.displayName ?? profile.resolutionID
-        return "\(profile.name) — \(resolutionName)"
-    }
-
-    private func statusText(for state: DisplayConnectionState) -> String {
+    @ViewBuilder
+    private func statusMessage(for state: DisplayConnectionState) -> some View {
         switch state {
-        case .disconnected:
-            return String(localized: "status.disconnected", defaultValue: "Disconnected")
         case .connecting:
-            return String(localized: "status.connecting", defaultValue: "Connecting…")
-        case let .connected(displayID):
-            return String(
-                format: String(localized: "status.connected", defaultValue: "Connected (Display ID %u)"),
-                displayID
-            )
+            Text("status.connecting")
         case let .failed(message):
-            return String(
-                format: String(localized: "status.failed", defaultValue: "Disconnected: %@"),
-                message
+            Text(
+                String(
+                    format: String(localized: "status.failed", defaultValue: "Disconnected: %@"),
+                    message
+                )
             )
+        case .connected, .disconnected:
+            EmptyView()
         }
     }
+
+    private static let recommendedResolution = ResolutionPreset(
+        width: 1_920,
+        height: 1_080,
+        aspectRatio: .sixteenByNine
+    )
 
     private func statusSymbol(for state: DisplayConnectionState) -> String {
         switch state {
