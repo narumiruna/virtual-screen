@@ -16,6 +16,7 @@
 "menu.resolutionControlledByMirror" = "解析度：由同步來源控制";
 "menu.mirrorDisplay" = "同步顯示";
 "menu.mirrorNone" = "不同步";
+"menu.mirrorRestoreFailed" = "所選同步來源尚未生效";
 "menu.mirrorSourceUnavailable" = "所選來源目前無法使用";
 "menu.rename" = "重新命名…";
 "menu.remove" = "移除…";

@@ -104,23 +104,34 @@ struct MenuBarContent: View {
         for profile: VirtualDisplayProfile,
         state: DisplayConnectionState
     ) -> some View {
-        Menu {
+        let activeSourceID = store.activeMirrorSourceIDs[profile.id]
+        let restoreFailed = store.hasMirrorRestoreFailure(profileID: profile.id)
+        let selectedSourceUnavailable = profile.mirrorSourceID.map { selectedSourceID in
+            !store.mirrorSources.contains(where: { $0.id == selectedSourceID })
+        } ?? false
+
+        return Menu {
             Button {
                 store.setMirrorSource(nil, for: profile.id)
                 presentStoreErrorIfNeeded()
             } label: {
-                if profile.mirrorSourceID == nil {
+                if activeSourceID == nil {
                     Label("menu.mirrorNone", systemImage: "checkmark")
                 } else {
                     Text("menu.mirrorNone")
                 }
             }
 
-            if let selectedSourceID = profile.mirrorSourceID,
-               !store.mirrorSources.contains(where: { $0.id == selectedSourceID }) {
+            if restoreFailed || selectedSourceUnavailable {
                 Divider()
-                Label("menu.mirrorSourceUnavailable", systemImage: "exclamationmark.triangle")
-                    .disabled(true)
+                if restoreFailed {
+                    Label("menu.mirrorRestoreFailed", systemImage: "exclamationmark.triangle")
+                        .disabled(true)
+                }
+                if selectedSourceUnavailable {
+                    Label("menu.mirrorSourceUnavailable", systemImage: "exclamationmark.triangle")
+                        .disabled(true)
+                }
             }
 
             if !store.mirrorSources.isEmpty {
@@ -130,7 +141,7 @@ struct MenuBarContent: View {
                         store.setMirrorSource(source.id, for: profile.id)
                         presentStoreErrorIfNeeded()
                     } label: {
-                        if profile.mirrorSourceID == source.id {
+                        if activeSourceID == source.id {
                             Label(source.name, systemImage: "checkmark")
                         } else {
                             Text(source.name)
