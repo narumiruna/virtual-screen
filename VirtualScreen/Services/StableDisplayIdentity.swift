@@ -1,13 +1,15 @@
 import Foundation
 
 struct StableDisplayIdentity: Equatable, Sendable {
+    static let virtualDisplayVendorID: UInt32 = 0x4E52 // "NR"
+
     let vendorID: UInt32
     let productID: UInt32
     let serialNumber: UInt32
 
     init(profileID: UUID) {
         let bytes = withUnsafeBytes(of: profileID.uuid) { Array($0) }
-        vendorID = 0x4E52 // "NR"
+        vendorID = Self.virtualDisplayVendorID
         productID = Self.fnv1a(bytes: bytes + [0x50, 0x52, 0x4F, 0x44])
         serialNumber = Self.fnv1a(bytes: bytes + [0x53, 0x45, 0x52, 0x49])
     }

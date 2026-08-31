@@ -14,7 +14,10 @@
 		2AB1FF81C06B0283F5744C65 /* LiveVirtualDisplayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A349DE2884E7E01F61B191 /* LiveVirtualDisplayTests.swift */; };
 		34F474931A4EDCB4EB75CDA7 /* ResolutionPresetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48450D05E16A5262C35BB8A /* ResolutionPresetTests.swift */; };
 		3668BF84944E6911111217CD /* VirtualDisplayProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD211C8CEC50B56B54183AEE /* VirtualDisplayProfile.swift */; };
+		36B6404B420CD685CD16E2CC /* DisplayMirroringManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94287CA53A8E8A63416FD55 /* DisplayMirroringManagerTests.swift */; };
 		3F8921F25D8F3E2ACFFA5268 /* LaunchAtLoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC83A9832A065B27EE5D60E /* LaunchAtLoginManager.swift */; };
+		485FCB6798903552D730308E /* ColorSync.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D42331884625ED13A815B12 /* ColorSync.framework */; };
+		582966FA244B9A08845BF886 /* DisplayMirroringManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1ACA59857EC71663F2D5CCC /* DisplayMirroringManager.swift */; };
 		5F8109AB340E39AEA34CF392 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E10FB8F7CB3BB24C1B52AEB0 /* SwiftUI.framework */; };
 		69F1507ADC2C330680AFA374 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5FA6FBC5F7E6B20DB9D0120E /* InfoPlist.strings */; };
 		729B24077272887970D50AFA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E5063D18DDB36A259ACD0487 /* Localizable.strings */; };
@@ -48,6 +51,7 @@
 		0392E537B66C2DCF9321307D /* VirtualScreenTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VirtualScreenTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E8499D2842E8624980158C3 /* VirtualDisplayBackend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualDisplayBackend.swift; sourceTree = "<group>"; };
 		1C6291E17D85E9FC0AA7D4D1 /* StateRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateRepository.swift; sourceTree = "<group>"; };
+		2D42331884625ED13A815B12 /* ColorSync.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ColorSync.framework; path = System/Library/Frameworks/ColorSync.framework; sourceTree = SDKROOT; };
 		35B6D9F32EC9CF827C1AE367 /* CoreGraphicsVirtualDisplayBackend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreGraphicsVirtualDisplayBackend.swift; sourceTree = "<group>"; };
 		3AA2F342E45E606EAD74DD46 /* MenuBarContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarContent.swift; sourceTree = "<group>"; };
 		3BCD1322A836F337EB31771B /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
@@ -63,9 +67,11 @@
 		979328D9BA4A38EE7A3B800F /* TestDoubles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDoubles.swift; sourceTree = "<group>"; };
 		9D85D7EE66F5E34DA578CED8 /* VirtualDisplayStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualDisplayStoreTests.swift; sourceTree = "<group>"; };
 		9F681640B3529D82C57252C7 /* DialogPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogPresenter.swift; sourceTree = "<group>"; };
+		A1ACA59857EC71663F2D5CCC /* DisplayMirroringManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayMirroringManager.swift; sourceTree = "<group>"; };
 		A724875EA94B73532FDE20FD /* PersistedState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistedState.swift; sourceTree = "<group>"; };
 		AEA9DD8B8929B6EDF29625D0 /* PersistenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceTests.swift; sourceTree = "<group>"; };
 		B78E6E4A60EB357911C9D43C /* StableDisplayIdentity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StableDisplayIdentity.swift; sourceTree = "<group>"; };
+		B94287CA53A8E8A63416FD55 /* DisplayMirroringManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayMirroringManagerTests.swift; sourceTree = "<group>"; };
 		BA671942716BF1D06E8FBF4D /* VirtualScreenApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualScreenApp.swift; sourceTree = "<group>"; };
 		BF12D86B9444D63B9ACDE2AC /* VSCGVirtualDisplayBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VSCGVirtualDisplayBridge.m; sourceTree = "<group>"; };
 		BF306AEE45D19B9D635E8C06 /* ResolutionPreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResolutionPreset.swift; sourceTree = "<group>"; };
@@ -85,6 +91,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DD55A4CF935411F6315DE184 /* AppKit.framework in Frameworks */,
+				485FCB6798903552D730308E /* ColorSync.framework in Frameworks */,
 				FF5DA59F8BBE812C3C2D9998 /* CoreGraphics.framework in Frameworks */,
 				740AC1A755CE6924B8B545C9 /* ServiceManagement.framework in Frameworks */,
 				5F8109AB340E39AEA34CF392 /* SwiftUI.framework in Frameworks */,
@@ -98,6 +105,7 @@
 			isa = PBXGroup;
 			children = (
 				35B6D9F32EC9CF827C1AE367 /* CoreGraphicsVirtualDisplayBackend.swift */,
+				A1ACA59857EC71663F2D5CCC /* DisplayMirroringManager.swift */,
 				DFC83A9832A065B27EE5D60E /* LaunchAtLoginManager.swift */,
 				B78E6E4A60EB357911C9D43C /* StableDisplayIdentity.swift */,
 				0E8499D2842E8624980158C3 /* VirtualDisplayBackend.swift */,
@@ -109,6 +117,7 @@
 			isa = PBXGroup;
 			children = (
 				4E67705D6FB65B04B552FAD3 /* AppKit.framework */,
+				2D42331884625ED13A815B12 /* ColorSync.framework */,
 				6529809543E34CB72FEDAA5B /* CoreGraphics.framework */,
 				3BCD1322A836F337EB31771B /* ServiceManagement.framework */,
 				E10FB8F7CB3BB24C1B52AEB0 /* SwiftUI.framework */,
@@ -146,6 +155,7 @@
 		A180A7F44BBF60122450F86D /* VirtualScreenTests */ = {
 			isa = PBXGroup;
 			children = (
+				B94287CA53A8E8A63416FD55 /* DisplayMirroringManagerTests.swift */,
 				65A349DE2884E7E01F61B191 /* LiveVirtualDisplayTests.swift */,
 				AEA9DD8B8929B6EDF29625D0 /* PersistenceTests.swift */,
 				D48450D05E16A5262C35BB8A /* ResolutionPresetTests.swift */,
@@ -326,6 +336,7 @@
 			files = (
 				148256B2611D0D073F96E9C8 /* CoreGraphicsVirtualDisplayBackend.swift in Sources */,
 				193F1108E15DED7C16871CDD /* DialogPresenter.swift in Sources */,
+				582966FA244B9A08845BF886 /* DisplayMirroringManager.swift in Sources */,
 				3F8921F25D8F3E2ACFFA5268 /* LaunchAtLoginManager.swift in Sources */,
 				AB9FAAED8E161C4AECBBF220 /* MenuBarContent.swift in Sources */,
 				E17E25728A25B03BA313B2AD /* PersistedState.swift in Sources */,
@@ -344,6 +355,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				36B6404B420CD685CD16E2CC /* DisplayMirroringManagerTests.swift in Sources */,
 				2AB1FF81C06B0283F5744C65 /* LiveVirtualDisplayTests.swift in Sources */,
 				A8796038CC51DC863E3CBC41 /* PersistenceTests.swift in Sources */,
 				34F474931A4EDCB4EB75CDA7 /* ResolutionPresetTests.swift in Sources */,

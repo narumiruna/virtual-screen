@@ -24,6 +24,7 @@ targets:
       - path: VirtualScreen
     dependencies:
       - sdk: AppKit.framework
+      - sdk: ColorSync.framework
       - sdk: CoreGraphics.framework
       - sdk: ServiceManagement.framework
       - sdk: SwiftUI.framework

@@ -72,6 +72,7 @@ struct MenuBarContent: View {
                 }
             }
 
+            mirrorMenu(for: profile, state: state)
             resolutionMenu(for: profile, state: state)
 
             Divider()
@@ -99,6 +100,50 @@ struct MenuBarContent: View {
         }
     }
 
+    private func mirrorMenu(
+        for profile: VirtualDisplayProfile,
+        state: DisplayConnectionState
+    ) -> some View {
+        Menu {
+            Button {
+                store.setMirrorSource(nil, for: profile.id)
+                presentStoreErrorIfNeeded()
+            } label: {
+                if profile.mirrorSourceID == nil {
+                    Label("menu.mirrorNone", systemImage: "checkmark")
+                } else {
+                    Text("menu.mirrorNone")
+                }
+            }
+
+            if let selectedSourceID = profile.mirrorSourceID,
+               !store.mirrorSources.contains(where: { $0.id == selectedSourceID }) {
+                Divider()
+                Label("menu.mirrorSourceUnavailable", systemImage: "exclamationmark.triangle")
+                    .disabled(true)
+            }
+
+            if !store.mirrorSources.isEmpty {
+                Divider()
+                ForEach(store.mirrorSources) { source in
+                    Button {
+                        store.setMirrorSource(source.id, for: profile.id)
+                        presentStoreErrorIfNeeded()
+                    } label: {
+                        if profile.mirrorSourceID == source.id {
+                            Label(source.name, systemImage: "checkmark")
+                        } else {
+                            Text(source.name)
+                        }
+                    }
+                }
+            }
+        } label: {
+            Text("menu.mirrorDisplay")
+        }
+        .disabled(!state.isConnected || state.isBusy)
+    }
+
     private func resolutionMenu(
         for profile: VirtualDisplayProfile,
         state: DisplayConnectionState
@@ -120,14 +165,18 @@ struct MenuBarContent: View {
                 }
             }
         } label: {
-            Text(
-                String(
-                    format: String(localized: "menu.resolutionCurrent", defaultValue: "Resolution: %@"),
-                    profile.resolution?.displayName ?? profile.resolutionID
+            if store.isMirroring(profileID: profile.id) {
+                Text("menu.resolutionControlledByMirror")
+            } else {
+                Text(
+                    String(
+                        format: String(localized: "menu.resolutionCurrent", defaultValue: "Resolution: %@"),
+                        profile.resolution?.displayName ?? profile.resolutionID
+                    )
                 )
-            )
+            }
         }
-        .disabled(state.isBusy)
+        .disabled(state.isBusy || store.isMirroring(profileID: profile.id))
     }
 
     @ViewBuilder

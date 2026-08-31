@@ -29,10 +29,13 @@ final class VirtualDisplayStore: ObservableObject {
     @Published private(set) var launchAtLoginStatus: LaunchAtLoginStatus
     @Published private(set) var shouldShowLaunchAtLoginApproval = false
     @Published private(set) var lastErrorMessage: String?
+    @Published private(set) var mirrorSources: [DisplayMirrorSource] = []
+    @Published private(set) var activeMirrorSourceIDs: [UUID: UUID] = [:]
 
     private let backend: VirtualDisplayBackend
     private let repository: StatePersisting
     private let launchAtLoginManager: LaunchAtLoginManaging
+    private let mirroringManager: any DisplayMirroringManaging
     private let wakeRetryDelayNanoseconds: UInt64
     private let logger = Logger(subsystem: "com.narumi.VirtualScreen", category: "Store")
 
@@ -40,18 +43,23 @@ final class VirtualDisplayStore: ObservableObject {
     private var connections: [UUID: any VirtualDisplayConnection] = [:]
     private var connectionTokens: [UUID: UUID] = [:]
     private var workspaceWakeObserver: NSObjectProtocol?
+    private var screenParametersObserver: NSObjectProtocol?
     private var hasStarted = false
     private var wakeRetryInProgress = false
+    private var mirrorRestoreInProgress = false
+    private var mirrorRestorePending = false
 
     init(
         backend: VirtualDisplayBackend,
         repository: StatePersisting,
         launchAtLoginManager: LaunchAtLoginManaging,
+        mirroringManager: any DisplayMirroringManaging,
         wakeRetryDelayNanoseconds: UInt64 = 1_000_000_000
     ) {
         self.backend = backend
         self.repository = repository
         self.launchAtLoginManager = launchAtLoginManager
+        self.mirroringManager = mirroringManager
         self.wakeRetryDelayNanoseconds = wakeRetryDelayNanoseconds
 
         let state = repository.load()
@@ -66,7 +74,8 @@ final class VirtualDisplayStore: ObservableObject {
         self.init(
             backend: CoreGraphicsVirtualDisplayBackend(),
             repository: StateRepository(),
-            launchAtLoginManager: LaunchAtLoginManager()
+            launchAtLoginManager: LaunchAtLoginManager(),
+            mirroringManager: DisplayMirroringManager()
         )
     }
 
@@ -74,12 +83,16 @@ final class VirtualDisplayStore: ObservableObject {
         if let workspaceWakeObserver {
             NSWorkspace.shared.notificationCenter.removeObserver(workspaceWakeObserver)
         }
+        if let screenParametersObserver {
+            NotificationCenter.default.removeObserver(screenParametersObserver)
+        }
     }
 
     func start() async {
         guard !hasStarted else { return }
         hasStarted = true
         installWakeObserver()
+        installScreenParametersObserver()
         configureDefaultLaunchAtLoginIfNeeded()
 
         guard backendAvailability.isAvailable else {
@@ -102,6 +115,47 @@ final class VirtualDisplayStore: ObservableObject {
 
     func profile(id: UUID) -> VirtualDisplayProfile? {
         profiles.first { $0.id == id }
+    }
+
+    func isMirroring(profileID: UUID) -> Bool {
+        activeMirrorSourceIDs[profileID] != nil
+    }
+
+    func setMirrorSource(_ sourceID: UUID?, for profileID: UUID) {
+        guard let index = profiles.firstIndex(where: { $0.id == profileID }),
+              let connection = connections[profileID] else {
+            reportError(DisplayMirroringError.targetUnavailable.localizedDescription)
+            return
+        }
+
+        mirrorRestoreInProgress = true
+        defer {
+            mirrorRestoreInProgress = false
+            if mirrorRestorePending {
+                mirrorRestorePending = false
+                handleDisplayReconfiguration()
+            }
+        }
+
+        do {
+            try mirroringManager.setMirror(
+                targetDisplayID: connection.displayID,
+                sourceID: sourceID
+            )
+            profiles[index].mirrorSourceID = sourceID
+            activeMirrorSourceIDs[profileID] = sourceID
+            save()
+        } catch {
+            activeMirrorSourceIDs[profileID] = mirroringManager.mirrorSourceID(
+                for: connection.displayID
+            )
+            reportError(error.localizedDescription)
+        }
+    }
+
+    func handleDisplayReconfiguration() {
+        refreshMirrorSources()
+        restoreDesiredMirrors()
     }
 
     func needs8KWarning(for resolution: ResolutionPreset) -> Bool {
@@ -138,8 +192,10 @@ final class VirtualDisplayStore: ObservableObject {
         guard let index = profiles.firstIndex(where: { $0.id == id }) else { return }
         profiles[index].desiredConnected = false
         connectionTokens[id] = nil
+        clearActualMirror(profileID: id)
         let connection = connections.removeValue(forKey: id)
         connection?.invalidate()
+        activeMirrorSourceIDs[id] = nil
         connectionStates[id] = .disconnected
         save()
         logger.info("Disconnected virtual display \(id.uuidString, privacy: .public)")
@@ -148,6 +204,18 @@ final class VirtualDisplayStore: ObservableObject {
     func setResolution(_ resolution: ResolutionPreset, for profileID: UUID) async {
         guard let index = profiles.firstIndex(where: { $0.id == profileID }) else { return }
         guard profiles[index].resolutionID != resolution.id else { return }
+
+        if let connection = connections[profileID],
+           mirroringManager.mirrorSourceID(for: connection.displayID) != nil {
+            activeMirrorSourceIDs[profileID] = mirroringManager.mirrorSourceID(for: connection.displayID)
+            reportError(
+                String(
+                    localized: "error.resolutionMirrored",
+                    defaultValue: "Disconnect display mirroring before changing the resolution."
+                )
+            )
+            return
+        }
 
         if let connection = connections[profileID] {
             do {
@@ -184,7 +252,9 @@ final class VirtualDisplayStore: ObservableObject {
 
         if shouldReconnect {
             connectionTokens[id] = nil
+            clearActualMirror(profileID: id)
             connections.removeValue(forKey: id)?.invalidate()
+            activeMirrorSourceIDs[id] = nil
             connectionStates[id] = .disconnected
             await connectProfile(id: id, updateDesiredState: false)
         }
@@ -192,7 +262,9 @@ final class VirtualDisplayStore: ObservableObject {
 
     func removeProfile(id: UUID) {
         connectionTokens[id] = nil
+        clearActualMirror(profileID: id)
         connections.removeValue(forKey: id)?.invalidate()
+        activeMirrorSourceIDs[id] = nil
         connectionStates[id] = nil
         profiles.removeAll { $0.id == id }
         save()
@@ -212,6 +284,7 @@ final class VirtualDisplayStore: ObservableObject {
             if let connection = connections[profile.id], !connection.isValid {
                 connectionTokens[profile.id] = nil
                 connections[profile.id] = nil
+                activeMirrorSourceIDs[profile.id] = nil
                 connection.invalidate()
                 connectionStates[profile.id] = .disconnected
             }
@@ -219,6 +292,8 @@ final class VirtualDisplayStore: ObservableObject {
                 await connectProfile(id: profile.id, updateDesiredState: false)
             }
         }
+
+        handleDisplayReconfiguration()
     }
 
     func setLaunchAtLoginEnabled(_ enabled: Bool) {
@@ -307,6 +382,8 @@ final class VirtualDisplayStore: ObservableObject {
 
             connections[id] = connection
             connectionStates[id] = .connected(displayID: connection.displayID)
+            refreshMirrorSources()
+            restoreDesiredMirrors()
             logger.info("Virtual display \(id.uuidString, privacy: .public) is connected")
         } catch {
             guard connectionTokens[id] == token else { return }
@@ -320,7 +397,9 @@ final class VirtualDisplayStore: ObservableObject {
     private func handleTermination(profileID: UUID, token: UUID) {
         guard connectionTokens[profileID] == token else { return }
         connectionTokens[profileID] = nil
+        clearActualMirror(profileID: profileID)
         connections[profileID] = nil
+        activeMirrorSourceIDs[profileID] = nil
         let message = String(localized: "error.unexpectedTermination", defaultValue: "The virtual display was disconnected by macOS.")
         connectionStates[profileID] = .failed(message: message)
         reportError(message)
@@ -371,6 +450,103 @@ final class VirtualDisplayStore: ObservableObject {
             Task { @MainActor [weak self] in
                 await self?.retryDesiredConnectionsAfterWake()
             }
+        }
+    }
+
+    private func installScreenParametersObserver() {
+        screenParametersObserver = NotificationCenter.default.addObserver(
+            forName: NSApplication.didChangeScreenParametersNotification,
+            object: nil,
+            queue: .main
+        ) { [weak self] _ in
+            Task { @MainActor [weak self] in
+                self?.handleDisplayReconfiguration()
+            }
+        }
+    }
+
+    private func refreshMirrorSources() {
+        do {
+            let virtualDisplayIDs = Set(connections.values.map(\.displayID))
+            mirrorSources = try mirroringManager.availableSources(excluding: virtualDisplayIDs)
+            refreshActiveMirrorStates()
+        } catch {
+            mirrorSources = []
+            logger.error("Could not refresh mirror sources: \(error.localizedDescription, privacy: .public)")
+        }
+    }
+
+    private func refreshActiveMirrorStates() {
+        activeMirrorSourceIDs = connections.reduce(into: [:]) { result, entry in
+            if let sourceID = mirroringManager.mirrorSourceID(for: entry.value.displayID) {
+                result[entry.key] = sourceID
+            }
+        }
+    }
+
+    private func restoreDesiredMirrors() {
+        guard !mirrorRestoreInProgress else {
+            mirrorRestorePending = true
+            return
+        }
+
+        mirrorRestoreInProgress = true
+        var passCount = 0
+        repeat {
+            mirrorRestorePending = false
+            for profile in profiles where profile.mirrorSourceID != nil {
+                restoreMirror(for: profile.id)
+            }
+            passCount += 1
+        } while mirrorRestorePending && passCount < 2
+        mirrorRestoreInProgress = false
+    }
+
+    private func restoreMirror(for profileID: UUID) {
+        guard let profile = profile(id: profileID),
+              let sourceID = profile.mirrorSourceID,
+              let connection = connections[profileID] else {
+            activeMirrorSourceIDs[profileID] = nil
+            return
+        }
+        guard mirrorSources.contains(where: { $0.id == sourceID }) else {
+            activeMirrorSourceIDs[profileID] = mirroringManager.mirrorSourceID(
+                for: connection.displayID
+            )
+            return
+        }
+
+        do {
+            try mirroringManager.setMirror(
+                targetDisplayID: connection.displayID,
+                sourceID: sourceID
+            )
+            activeMirrorSourceIDs[profileID] = sourceID
+        } catch {
+            activeMirrorSourceIDs[profileID] = mirroringManager.mirrorSourceID(
+                for: connection.displayID
+            )
+            logger.error(
+                "Could not restore mirroring for \(profileID.uuidString, privacy: .public): \(error.localizedDescription, privacy: .public)"
+            )
+        }
+    }
+
+    private func clearActualMirror(profileID: UUID) {
+        guard let connection = connections[profileID],
+              mirroringManager.mirrorSourceID(for: connection.displayID) != nil else {
+            return
+        }
+
+        do {
+            try mirroringManager.setMirror(
+                targetDisplayID: connection.displayID,
+                sourceID: nil
+            )
+        } catch {
+            logger.error(
+                "Could not clear mirroring for \(profileID.uuidString, privacy: .public): \(error.localizedDescription, privacy: .public)"
+            )
         }
     }
 
