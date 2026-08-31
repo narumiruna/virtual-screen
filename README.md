@@ -19,7 +19,7 @@ Install [just](https://github.com/casey/just), then run:
 just run
 ```
 
-Alternatively, open `VirtualScreen.xcodeproj` and run the `VirtualScreen` scheme.
+Alternatively, open `DisplayLoom.xcodeproj` and run the `DisplayLoom` scheme.
 The app appears only in the menu bar.
 Use its display icon to add, connect, rename, resize, mirror, disconnect, or remove virtual displays.
 

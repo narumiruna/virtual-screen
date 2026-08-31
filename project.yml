@@ -1,4 +1,4 @@
-name: VirtualScreen
+name: DisplayLoom
 options:
   bundleIdPrefix: dev.narumi
   deploymentTarget:
@@ -17,11 +17,11 @@ settings:
     DEVELOPMENT_TEAM: ""
     RUN_VIRTUAL_DISPLAY_TESTS: "0"
 targets:
-  VirtualScreen:
+  DisplayLoom:
     type: application
     platform: macOS
     sources:
-      - path: VirtualScreen
+      - path: DisplayLoom
     dependencies:
       - sdk: AppKit.framework
       - sdk: ColorSync.framework
@@ -29,7 +29,7 @@ targets:
       - sdk: ServiceManagement.framework
       - sdk: SwiftUI.framework
     info:
-      path: VirtualScreen/Resources/Info.plist
+      path: DisplayLoom/Resources/Info.plist
       properties:
         CFBundleDisplayName: Display Loom
         CFBundleName: Display Loom
@@ -46,17 +46,17 @@ targets:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: dev.narumi.DisplayLoom
         PRODUCT_NAME: Display Loom
-        PRODUCT_MODULE_NAME: VirtualScreen
-        SWIFT_OBJC_BRIDGING_HEADER: VirtualScreen/Bridge/VirtualScreen-Bridging-Header.h
+        PRODUCT_MODULE_NAME: DisplayLoom
+        SWIFT_OBJC_BRIDGING_HEADER: DisplayLoom/Bridge/DisplayLoom-Bridging-Header.h
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
-  VirtualScreenTests:
+  DisplayLoomTests:
     type: bundle.unit-test
     platform: macOS
     sources:
-      - path: VirtualScreenTests
+      - path: DisplayLoomTests
     dependencies:
-      - target: VirtualScreen
+      - target: DisplayLoom
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: dev.narumi.DisplayLoomTests
@@ -64,17 +64,17 @@ targets:
         TEST_HOST: $(BUILT_PRODUCTS_DIR)/Display Loom.app/Contents/MacOS/Display Loom
         BUNDLE_LOADER: $(TEST_HOST)
 schemes:
-  VirtualScreen:
+  DisplayLoom:
     build:
       targets:
-        VirtualScreen: all
-        VirtualScreenTests: [test]
+        DisplayLoom: all
+        DisplayLoomTests: [test]
     run:
       config: Debug
     test:
       config: Debug
       targets:
-        - VirtualScreenTests
+        - DisplayLoomTests
       environmentVariables:
         RUN_VIRTUAL_DISPLAY_TESTS: "$(RUN_VIRTUAL_DISPLAY_TESTS)"
     archive:

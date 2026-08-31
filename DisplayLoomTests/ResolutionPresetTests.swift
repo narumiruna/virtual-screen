@@ -1,6 +1,6 @@
 import XCTest
 
-@testable import VirtualScreen
+@testable import DisplayLoom
 
 final class ResolutionPresetTests: XCTestCase {
   func testCatalogContainsUniqueNativeResolutionIDs() {

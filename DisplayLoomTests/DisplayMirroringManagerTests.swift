@@ -1,7 +1,7 @@
 import CoreGraphics
 import XCTest
 
-@testable import VirtualScreen
+@testable import DisplayLoom
 
 @MainActor
 final class DisplayMirroringManagerTests: XCTestCase {
@@ -22,7 +22,7 @@ final class DisplayMirroringManagerTests: XCTestCase {
     XCTAssertFalse(sources.contains(where: { $0.id == uuid }))
   }
 
-  func testAvailableSourcesExcludeVirtualScreenVendor() throws {
+  func testAvailableSourcesExcludeDisplayLoomVendor() throws {
     let manager = DisplayMirroringManager()
 
     let sources = try manager.availableSources(excluding: [])

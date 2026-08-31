@@ -1,6 +1,6 @@
 import XCTest
 
-@testable import VirtualScreen
+@testable import DisplayLoom
 
 @MainActor
 final class VirtualDisplayStoreTests: XCTestCase {
