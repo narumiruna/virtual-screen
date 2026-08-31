@@ -5,9 +5,11 @@
 
 "menu.noDisplays" = "No Virtual Displays";
 "menu.addDisplay" = "Add Virtual Display";
+"menu.addDisplayWithResolution" = "Add with Resolution…";
 "menu.connect" = "Connect";
 "menu.disconnect" = "Disconnect";
 "menu.resolution" = "Resolution";
+"menu.resolutionCurrent" = "Resolution: %@";
 "menu.rename" = "Rename…";
 "menu.remove" = "Remove…";
 "menu.launchAtLogin" = "Launch at Login";
@@ -28,7 +30,7 @@
 "dialog.rename.placeholder" = "Display name";
 "dialog.rename" = "Rename";
 "dialog.remove.title" = "Remove Virtual Display?";
-"dialog.remove.message" = "“%@” is connected. It will be disconnected and its saved settings will be removed.";
+"dialog.remove.message" = "“%@” and its saved settings will be removed. This can’t be undone.";
 "dialog.remove" = "Remove";
 "dialog.error.title" = "Virtual Screen Error";
 "dialog.ok" = "OK";

@@ -38,7 +38,7 @@ enum DialogPresenter {
         let alert = makeAlert(
             title: String(localized: "dialog.remove.title", defaultValue: "Remove Virtual Display?"),
             message: String(
-                format: String(localized: "dialog.remove.message", defaultValue: "“%@” is connected. It will be disconnected and its saved settings will be removed."),
+                format: String(localized: "dialog.remove.message", defaultValue: "“%@” and its saved settings will be removed. This can’t be undone."),
                 name
             ),
             style: .warning
