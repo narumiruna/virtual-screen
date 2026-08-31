@@ -72,7 +72,7 @@ flowchart LR
 - [x] 更新 `VirtualScreen/UI/MenuBarContent.swift`，於已連線 profile 加入「同步顯示」submenu，提供「不同步」、來源清單、目前選項 checkmark 與來源不可用狀態；同步中停用解析度並顯示由來源控制。
 - [x] 更新英文與台灣正體中文 `Localizable.strings`，涵蓋同步選單、不可用來源、解析度受來源控制與 CoreGraphics 錯誤；`just test` 的 Debug build 已驗證 strings 可編譯。
 - [x] 更新 `README.md` 的使用方式與限制，說明同步來源選擇、自動恢復，以及同步模式由 macOS 控制相容解析度。
-- [ ] 執行 `just test` 與 `just test-live`。證據：`just test` 通過 32 tests（1 個 opt-in skip）；`just test-live` 的 create、resolution switch 與 cleanup 通過，但因測試機沒有非 Virtual Screen 實體來源，mirror/unmirror 部分安全跳過。
+- [x] 執行 `just test` 與 `just test-live`。證據：`just test` 通過 32 tests（1 個 opt-in skip）；`just test-live` 的 create、resolution switch 與 cleanup 通過，但因測試機沒有非 Virtual Screen 實體來源，mirror/unmirror 部分安全跳過。
 - [ ] 在至少有內建與外接螢幕其中一種來源的 Mac 手動驗收：選擇來源後畫面同步、選擇不同步後恢復延伸、斷線重連後恢復、App 重啟後恢復、睡眠喚醒後恢復、來源拔除與接回後恢復。2026-08-31 blocker：目前測試機的唯一 online display 是既有 Virtual Screen，需接上實體螢幕後完成並將結果記錄在 PR。
 
 ## Completion Checklist
