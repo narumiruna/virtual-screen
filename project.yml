@@ -12,7 +12,7 @@ settings:
     SWIFT_VERSION: "5.0"
     SWIFT_STRICT_CONCURRENCY: minimal
     ENABLE_HARDENED_RUNTIME: true
-    ENABLE_APP_SANDBOX: false
+    ENABLE_APP_SANDBOX: true
     CODE_SIGN_STYLE: Automatic
     DEVELOPMENT_TEAM: ""
     RUN_VIRTUAL_DISPLAY_TESTS: "0"
@@ -28,6 +28,10 @@ targets:
       - sdk: CoreGraphics.framework
       - sdk: ServiceManagement.framework
       - sdk: SwiftUI.framework
+    entitlements:
+      path: DisplayLoom/Resources/DisplayLoom.entitlements
+      properties:
+        com.apple.security.app-sandbox: true
     info:
       path: DisplayLoom/Resources/Info.plist
       properties:
